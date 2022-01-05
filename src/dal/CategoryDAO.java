@@ -1,32 +1,30 @@
 package dal;
 
-import be.Movie;
+import be.Category;
 
 import java.io.IOException;
 import java.util.List;
 
-public class MovieDAO {
+public class CategoryDAO {
 
-    public List<Movie> getAllMovies() throws IOException {
+    public List<Category> getAllCategories() throws IOException {
         throw new UnsupportedOperationException();
     }
 
-    public Movie createMovie() {
+    public Category createCategory() {
         throw new UnsupportedOperationException();
     }
 
-    public Movie deleteMovie() {
-        throw new UnsupportedOperationException();
-    }
-
-    public List<Movie> getCategoryMovie() throws IOException {
-        throw new UnsupportedOperationException();
-    }
-
-    public Movie updateMovie() {
+    public Category deleteCategory() {
         throw new UnsupportedOperationException();
     }
 
 
+    public Category addMovieToCategory() {
+        throw new UnsupportedOperationException();
+    }
 
+    public Category deleteMovieFromCategory() {
+        throw new UnsupportedOperationException();
+    }
 }
