@@ -44,11 +44,7 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         allMoviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
-
-
-
     }
 }

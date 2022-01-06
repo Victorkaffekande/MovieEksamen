@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-    private DatabaseConnector databaseConnector = new DatabaseConnector();
+    private DatabaseConnector databaseConnector;
 
     public CategoryDAO() throws IOException {
+         databaseConnector = new DatabaseConnector();
     }
 
     public List<Category> getAllCategories() throws IOException {
