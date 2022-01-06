@@ -1,6 +1,7 @@
 package dal;
 
 import be.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -76,12 +77,50 @@ public class MovieDAO {
 
 
 
-    public List<Movie> getCategoryMovie() throws IOException {
-        throw new UnsupportedOperationException();
+    public List<Movie> getCategoryMovie(int categoryId) throws SQLException {
+        ArrayList<Movie> allMovies = new ArrayList<>();
+        try (Connection connection = databaseConnector.getConnection()) {
+            String sql = "SELECT * FROM Movie m " +
+            "       innter join CatMovie cm on cm.MovieId = m.id" +
+            "       where cm.categoryID = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, categoryId);
+
+            if (preparedStatement.execute())
+            {
+                ResultSet resultSet = preparedStatement.getResultSet();
+                while (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    float rating = resultSet.getFloat("rating");
+                    String filelink = resultSet.getString("filelink");
+                    Timestamp lastview = resultSet.getTimestamp("lastview");
+                    int id = resultSet.getInt("id");
+                    Movie movie = new Movie(id, name, rating, filelink, lastview);
+                    allMovies.add(movie);
+                }
+            }
+
+        }
+            catch (SQLException throwables) {
+            throwables.printStackTrace();
+            }
+        return allMovies;
     }
 
-    public Movie updateMovie() {
-        throw new UnsupportedOperationException();
+    public void updateMovie(Movie movieUpdate) throws SQLException{
+        try (Connection connection = databaseConnector.getConnection()) {
+            String sql = "UPDATE Movie SET Name=?, Rating=?, filelink=?, lastview=? WHERE Id=?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, movieUpdate.getName());
+            ps.setFloat(2, movieUpdate.getRating());
+            ps.setString(3, movieUpdate.getFileLink());
+            ps.setTimestamp(4, movieUpdate.getLastView());
+            if (ps.executeUpdate() != 1) {
+                throw new Exception("Could not update Movie");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) throws IOException, SQLException {
