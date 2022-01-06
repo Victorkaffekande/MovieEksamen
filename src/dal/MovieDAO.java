@@ -28,7 +28,7 @@ public class MovieDAO {
                     String name = resultSet.getString("name");
                     float rating = resultSet.getFloat("rating");
                     String fileLink = resultSet.getString("fileLink");
-                    Date lastView = resultSet.getDate("lastView");
+                    java.sql.Timestamp lastView = resultSet.getTimestamp("lastView");
                     Movie movie = new Movie(id, name, rating, fileLink, lastView);
                     allMovies.add(movie);
                 }
@@ -39,7 +39,7 @@ public class MovieDAO {
         return allMovies;
     }
 
-    public Movie createMovie(String name, float rating, String filelink, Date lastview) throws SQLException {
+    public Movie createMovie(String name, float rating, String filelink, Timestamp lastview) throws SQLException {
         int Id = -1;
         String sql = "INSERT INTO Movie (Name, Rating, filelink, lastview) VALUES (?,?,?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -47,7 +47,7 @@ public class MovieDAO {
             ps.setString(1, name);
             ps.setFloat(2, rating);
             ps.setString(3, filelink);
-            ps.setDate(4, lastview);
+            ps.setTimestamp(4, lastview);
             ps.addBatch();
             ps.executeBatch();
 
@@ -86,7 +86,7 @@ public class MovieDAO {
 
     public static void main(String[] args) throws IOException, SQLException {
         MovieDAO movieDAO = new MovieDAO();
-        Date date = new Date(2000,2,2);
+        Timestamp date = new Timestamp(20);
         movieDAO.createMovie("Zyzz",5.5f,"zyzz",date);
     }
 
