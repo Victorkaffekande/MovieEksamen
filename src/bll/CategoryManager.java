@@ -6,13 +6,13 @@ import dal.CategoryDAO;
 
 import java.io.IOException;
 
-public abstract class ICategoryManager implements IManager {
+public class CategoryManager  {
     private CategoryDAO categoryDAO;
 
-    public ICategoryManager() throws IOException {
+    public CategoryManager() throws IOException {
         categoryDAO = new CategoryDAO();
     }
-    @Override
+
     public void getAllObjects() throws IOException {
         categoryDAO.getAllCategories();
     }

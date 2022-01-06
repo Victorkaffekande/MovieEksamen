@@ -8,14 +8,13 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public abstract class IMovieManager implements IManager {
+public class MovieManager {
 
     private MovieDAO movieDAO;
-    public IMovieManager() throws IOException {
+    public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
     }
 
-    @Override
     public void getAllObjects() throws IOException {
         movieDAO.getAllMovies();
     }
