@@ -8,9 +8,9 @@ public class Movie {
     private String name;
     private float rating;
     private String fileLink;
-    private Date lastView;
+    private java.sql.Date lastView;
 
-    public Movie(int id, String name, float rating, String fileLink, Date lastView) {
+    public Movie(int id, String name, float rating, String fileLink, java.sql.Date lastView) {
         this.id = id;
         this.name = name;
         this.rating = rating;
@@ -50,11 +50,11 @@ public class Movie {
         this.fileLink = fileLink;
     }
 
-    public Date getLastView() {
+    public java.sql.Date getLastView() {
         return lastView;
     }
 
-    public void setLastView(Date lastView) {
+    public void setLastView(java.sql.Date lastView) {
         this.lastView = lastView;
     }
 }

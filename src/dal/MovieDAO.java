@@ -85,6 +85,10 @@ public class MovieDAO {
         throw new UnsupportedOperationException();
     }
 
-
+    public static void main(String[] args) throws IOException, SQLException {
+        MovieDAO movieDAO = new MovieDAO();
+        Date date = new Date(2000,2,2);
+        movieDAO.createMovie("Zyzz",5.5f,"zyzz",date);
+    }
 
 }
