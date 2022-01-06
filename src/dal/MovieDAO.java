@@ -29,7 +29,6 @@ public class MovieDAO {
                     float rating = resultSet.getFloat("rating");
                     String fileLink = resultSet.getString("fileLink");
                     Date lastView = resultSet.getDate("lastView");
-
                     Movie movie = new Movie(id, name, rating, fileLink, lastView);
                     allMovies.add(movie);
                 }
