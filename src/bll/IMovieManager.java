@@ -4,6 +4,7 @@ import be.Movie;
 import dal.MovieDAO;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public abstract class IMovieManager implements IManager {
@@ -18,7 +19,7 @@ public abstract class IMovieManager implements IManager {
 
     }
 
-    public void create(String name, float rating, String fileLink, Date lastView) {
+    public void create(String name, float rating, String fileLink, Timestamp lastView) {
 
     }
 
