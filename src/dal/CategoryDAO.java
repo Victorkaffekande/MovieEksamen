@@ -6,10 +6,7 @@ import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +17,22 @@ public class CategoryDAO {
     }
 
     public List<Category> getAllCategories() throws IOException {
-        throw new UnsupportedOperationException();
+        List<Category> allPlaylists = new ArrayList<>();
+        try (Connection connection = databaseConnector.getConnection()) {
+            String sqlStatement = "SELECT * FROM Playlist";
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sqlStatement);
+            while (rs.next()) {
+                String name = rs.getString("Name");
+                int id = rs.getInt("Id");
+                Category category = new Category(id, name);
+                allPlaylists.add(category);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return allPlaylists;
     }
-
 
     public Category createCategory(String categoryName) throws SQLServerException {
         int newID = -1;
@@ -63,8 +73,16 @@ public class CategoryDAO {
         }
     }
 
-    public Category deleteMovieFromCategory() {
-        throw new UnsupportedOperationException();
+    public void deleteMovieFromCategory(Category category, Movie movie) {
+        try (Connection connection = databaseConnector.getConnection()) {
+            String sql = "DELETE FROM PlaylistSongs WHERE categoryId = ? AND movieId = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, category.getId());
+            ps.setInt(2, movie.getId());
+            ps.execute();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public List<Movie> getAllMoviesFromCategory(Category category) {
@@ -98,5 +116,4 @@ public class CategoryDAO {
         }
         return moviesInCategory;
     }
-
 }
