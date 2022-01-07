@@ -2,11 +2,13 @@ package bll;
 
 import be.Movie;
 import dal.MovieDAO;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 public class MovieManager {
 
@@ -15,8 +17,8 @@ public class MovieManager {
         movieDAO = new MovieDAO();
     }
 
-    public void getAllObjects() throws IOException {
-        movieDAO.getAllMovies();
+    public List<Movie> getAllObjects() throws IOException {
+        return movieDAO.getAllMovies();
     }
 
     public void create(String name, float rating, String fileLink, Timestamp lastView) throws SQLException {

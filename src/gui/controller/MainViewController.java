@@ -39,6 +39,7 @@ public class MainViewController implements Initializable {
         allMoviesNameColumn = new TableColumn();
         allMoviesRatingColumn = new TableColumn();
 
+
     }
 
 
@@ -46,5 +47,11 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         allMoviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
+
+        try {
+            allMoviesTable.setItems(movieModel.getObservableMovies());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
