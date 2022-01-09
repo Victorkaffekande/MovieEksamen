@@ -41,6 +41,7 @@ public class Filter {
         return movie.getName().toLowerCase().contains(query.toLowerCase());
     }
 
+    ///TODO fix category search
     private boolean containedInCategory(String query) throws SQLException {
         int[] categoryIds = getCategoryIds(query);
         if (categoryIds != null){
