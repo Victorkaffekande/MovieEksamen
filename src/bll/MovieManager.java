@@ -1,6 +1,7 @@
 package bll;
 
 import be.Movie;
+import bll.util.Filter;
 import dal.MovieDAO;
 import javafx.collections.ObservableList;
 
@@ -13,8 +14,10 @@ import java.util.List;
 public class MovieManager {
 
     private MovieDAO movieDAO;
+    private Filter filter;
     public MovieManager() throws IOException {
         movieDAO = new MovieDAO();
+        filter = new Filter();
     }
 
     public List<Movie> getAllObjects() throws IOException {
@@ -31,5 +34,9 @@ public class MovieManager {
 
     public void update(Movie movie) {
 
+    }
+
+    public List<Movie> getSearchedMovies(List<Movie> movieList, String query) throws SQLException {
+        return filter.search(movieList, query);
     }
 }

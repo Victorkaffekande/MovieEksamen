@@ -117,4 +117,9 @@ public class CategoryDAO {
         }
         return moviesInCategory;
     }
+
+    public static void main(String[] args) throws IOException, SQLServerException {
+        CategoryDAO categoryDAO = new CategoryDAO();
+
+    }
 }
