@@ -1,5 +1,6 @@
 package bll;
 
+import be.Category;
 import be.Movie;
 import dal.MovieDAO;
 import javafx.collections.ObservableList;
@@ -29,7 +30,11 @@ public class MovieManager {
         movieDAO.deleteMovie(movie);
     }
 
-    public void update(Movie movie) {
+    public void update(Movie movie) throws SQLException {
+        movieDAO.updateMovie(movie);
+    }
 
+    public List<Movie> getCategoryMovies(int categoryId) throws SQLException {
+      return movieDAO.getCategoryMovie(categoryId);
     }
 }
