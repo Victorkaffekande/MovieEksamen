@@ -6,16 +6,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="178.0" prefWidth="242.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CreateCategoryController">
+<AnchorPane prefHeight="178.0" prefWidth="242.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CreateCategoryController">
    <children>
       <Label layoutX="61.0" layoutY="23.0" text="Create category">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="49.0" layoutY="69.0" />
-      <Button layoutX="148.0" layoutY="129.0" mnemonicParsing="false" text="Accept" />
-      <Button layoutX="50.0" layoutY="129.0" mnemonicParsing="false" text="Cancel" />
+      <TextField fx:id="nameInput" layoutX="49.0" layoutY="69.0" />
+      <Button layoutX="148.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleAcceptButton" text="Accept" />
+      <Button layoutX="50.0" layoutY="129.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
    </children>
 </AnchorPane>

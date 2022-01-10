@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
@@ -79,7 +80,14 @@ public class MainViewController implements Initializable {
         });
     }
 
-    public void handleCreateCategory(ActionEvent actionEvent) {
+    public void handleCreateCategory(ActionEvent actionEvent) throws IOException {
+        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/CreateCategory.fxml"))); // The FXML path
+        Scene scene = new Scene(parent); // Scene supposed to be viewed
+        Stage createCategoryStage = new Stage();
+        createCategoryStage.setScene(scene); // Sets the new scene
+        createCategoryStage.showAndWait(); // This shows the new scene
+        categoryListView.getItems().clear();
+        categoryListView.setItems(categoryModel.getObservableCategories());
     }
 
     public void handleEditCategory(ActionEvent actionEvent) {
