@@ -5,6 +5,7 @@ import gui.Model.MovieModel;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -25,6 +26,8 @@ public class MainViewController implements Initializable {
     public TableColumn moviesNameColumn;
 
     public TableColumn moviesRatingColumn;
+
+    public TextField filterInput;
 
 
     private MovieModel movieModel = new MovieModel();
@@ -53,5 +56,14 @@ public class MainViewController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //movie search
+        filterInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
+            try {
+                movieModel.searchMovie(newValue);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

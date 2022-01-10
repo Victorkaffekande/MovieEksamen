@@ -35,7 +35,13 @@ public class MovieModel {
     public ObservableList<Movie> getObservableMovies() throws IOException {
         movieList.clear();
         movieList.addAll(getAllMovies());
-
         return movieList;
+    }
+
+    public void searchMovie(String query) throws IOException, SQLException {
+        List<Movie> allMovies = getAllMovies();
+        List<Movie> result = movieManager.getSearchedMovies(allMovies,query);
+        movieList.clear();
+        movieList.addAll(result);
     }
 }

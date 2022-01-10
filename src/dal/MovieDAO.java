@@ -126,7 +126,8 @@ public class MovieDAO {
     public static void main(String[] args) throws IOException, SQLException {
         MovieDAO movieDAO = new MovieDAO();
         Timestamp date = new Timestamp(20);
-        movieDAO.createMovie("Zyzz",5.5f,"zyzz",date);
+        movieDAO.createMovie("Saw",5.5f,"saw",date);
+        movieDAO.createMovie("forrest gump",5.5f,"fg",date);
     }
 
 }
