@@ -18,7 +18,7 @@ public class CategoryManager  {
        return categoryDAO.getAllCategories();
     }
 
-    public void create(String name ) throws SQLServerException {
+    public void createCategory(String name ) throws SQLServerException {
         categoryDAO.createCategory(name);
     }
 

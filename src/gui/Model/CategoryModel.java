@@ -2,6 +2,7 @@ package gui.Model;
 
 import be.Category;
 import bll.CategoryManager;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -28,4 +29,7 @@ public class CategoryModel {
         return categoryList;
     }
 
+    public void createCategory(String name) throws SQLServerException {
+        categoryManager.createCategory(name);
+    }
 }
