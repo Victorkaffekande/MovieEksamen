@@ -118,6 +118,18 @@ public class CategoryDAO {
         return moviesInCategory;
     }
 
+    public void addMovieToCategory(Category category, Movie movie){
+        String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES (?,?)";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, category.getId());
+            preparedStatement.setInt(2, movie.getId());
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
     public static void main(String[] args) throws IOException, SQLServerException {
         CategoryDAO categoryDAO = new CategoryDAO();
 
