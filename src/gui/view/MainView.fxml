@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="452.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
+<AnchorPane prefHeight="452.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
     <children>
         <TableView fx:id="allMoviesTable" layoutX="487.0" layoutY="118.0" prefHeight="285.0" prefWidth="243.0">
             <columns>
@@ -26,7 +26,7 @@
                 <TableColumn fx:id="moviesRatingColumn" prefWidth="86.40001220703124" text="Rating" />
             </columns>
         </TableView>
-        <Label layoutX="55.0" layoutY="92.0" text="category">
+        <Label layoutX="55.0" layoutY="92.0" text="Category">
             <font>
                 <Font size="18.0" />
             </font>
@@ -47,16 +47,16 @@
                 <Font size="18.0" />
             </font>
         </Text>
-        <Button layoutX="290.0" layoutY="23.0" mnemonicParsing="false" text="Play">
+        <Button layoutX="290.0" layoutY="23.0" mnemonicParsing="false" onAction="#HandleButtonPlay" text="Play">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button layoutX="14.0" layoutY="404.0" mnemonicParsing="false" text="Create" />
-        <Button layoutX="81.0" layoutY="404.0" mnemonicParsing="false" text="Edit" />
-        <Button layoutX="133.0" layoutY="404.0" mnemonicParsing="false" text="Delete" />
-        <Button layoutX="555.0" layoutY="404.0" mnemonicParsing="false" text="Create" />
-        <Button layoutX="623.0" layoutY="404.0" mnemonicParsing="false" text="Edit" />
-        <Button layoutX="679.0" layoutY="404.0" mnemonicParsing="false" text="Delete" />
+        <Button layoutX="14.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleCreateCategory" text="Create" />
+        <Button layoutX="81.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleEditCategory" text="Edit" />
+        <Button layoutX="133.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleDeleteCategory" text="Delete" />
+        <Button layoutX="555.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleCreateMovieButton" text="Create" />
+        <Button layoutX="623.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleEditMovieButton" text="Edit" />
+        <Button layoutX="679.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleDeleteMovieButton" text="Delete" />
     </children>
 </AnchorPane>

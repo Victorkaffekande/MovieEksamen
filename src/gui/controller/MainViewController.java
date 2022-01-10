@@ -4,6 +4,7 @@ import be.Category;
 import be.Movie;
 import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
@@ -75,5 +76,26 @@ public class MainViewController implements Initializable {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void HandleCreateCategory(ActionEvent actionEvent) {
+    }
+
+    public void HandleEditCategory(ActionEvent actionEvent) {
+    }
+
+    public void HandleDeleteCategory(ActionEvent actionEvent) {
+    }
+
+    public void HandleCreateMovieButton(ActionEvent actionEvent) {
+    }
+
+    public void HandleEditMovieButton(ActionEvent actionEvent) {
+    }
+
+    public void HandleDeleteMovieButton(ActionEvent actionEvent) {
+    }
+
+    public void HandleButtonPlay(ActionEvent actionEvent) {
     }
 }
