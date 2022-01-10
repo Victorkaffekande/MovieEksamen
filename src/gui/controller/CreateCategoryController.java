@@ -21,7 +21,7 @@ public class CreateCategoryController {
         categoryModel.createCategory(nameInput.getText());
         closeWindow();
     }
-    
+
     public void handleCancelButton(ActionEvent actionEvent) {
         closeWindow();
     }

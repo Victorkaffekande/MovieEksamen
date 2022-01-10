@@ -32,4 +32,8 @@ public class CategoryModel {
     public void createCategory(String name) throws SQLServerException {
         categoryManager.createCategory(name);
     }
+
+    public void deleteCategory(Category category){
+        categoryManager.delete(category);
+    }
 }
