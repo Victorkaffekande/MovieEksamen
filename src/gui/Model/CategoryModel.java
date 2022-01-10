@@ -28,4 +28,8 @@ public class CategoryModel {
         return categoryList;
     }
 
+    public void deleteCategory(Category category){
+        categoryManager.delete(category);
+    }
+
 }
