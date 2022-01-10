@@ -118,6 +118,20 @@ public class CategoryDAO {
         return moviesInCategory;
     }
 
+    public void addMovieToCategory(Category category, Movie movie) throws SQLException {
+        //Insert into SQL kommando, hvori at playlistID og songID bliver smidt ind
+        String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES (?,?)";
+        try (Connection connection = databaseConnector.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            //Sætter parametre
+            preparedStatement.setInt(1, category.getId());
+            preparedStatement.setInt(2, movie.getId());
+            preparedStatement.execute();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+
     public static void main(String[] args) throws IOException, SQLServerException {
         CategoryDAO categoryDAO = new CategoryDAO();
 
