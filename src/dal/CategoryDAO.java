@@ -76,7 +76,7 @@ public class CategoryDAO {
 
     public void deleteMovieFromCategory(Category category, Movie movie) {
         try (Connection connection = databaseConnector.getConnection()) {
-            String sql = "DELETE FROM PlaylistSongs WHERE categoryId = ? AND movieId = ?";
+            String sql = "DELETE FROM CatMovie WHERE categoryId = ? AND movieId = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, category.getId());
             ps.setInt(2, movie.getId());
