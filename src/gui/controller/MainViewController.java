@@ -78,24 +78,24 @@ public class MainViewController implements Initializable {
         });
     }
 
-    public void HandleCreateCategory(ActionEvent actionEvent) {
+    public void handleCreateCategory(ActionEvent actionEvent) {
     }
 
-    public void HandleEditCategory(ActionEvent actionEvent) {
+    public void handleEditCategory(ActionEvent actionEvent) {
     }
 
-    public void HandleDeleteCategory(ActionEvent actionEvent) {
+    public void handleDeleteCategory(ActionEvent actionEvent) {
     }
 
-    public void HandleCreateMovieButton(ActionEvent actionEvent) {
+    public void handleCreateMovieButton(ActionEvent actionEvent) {
     }
 
-    public void HandleEditMovieButton(ActionEvent actionEvent) {
+    public void handleEditMovieButton(ActionEvent actionEvent) {
     }
 
-    public void HandleDeleteMovieButton(ActionEvent actionEvent) {
+    public void handleDeleteMovieButton(ActionEvent actionEvent) {
     }
 
-    public void HandleButtonPlay(ActionEvent actionEvent) {
+    public void handleButtonPlay(ActionEvent actionEvent) {
     }
 }

@@ -47,16 +47,16 @@
                 <Font size="18.0" />
             </font>
         </Text>
-        <Button layoutX="290.0" layoutY="23.0" mnemonicParsing="false" onAction="#HandleButtonPlay" text="Play">
+        <Button layoutX="290.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonPlay" text="Play">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button layoutX="14.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleCreateCategory" text="Create" />
-        <Button layoutX="81.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleEditCategory" text="Edit" />
-        <Button layoutX="133.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleDeleteCategory" text="Delete" />
-        <Button layoutX="555.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleCreateMovieButton" text="Create" />
-        <Button layoutX="623.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleEditMovieButton" text="Edit" />
-        <Button layoutX="679.0" layoutY="404.0" mnemonicParsing="false" onAction="#HandleDeleteMovieButton" text="Delete" />
+        <Button layoutX="14.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleCreateCategory" text="Create" />
+        <Button layoutX="81.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleEditCategory" text="Edit" />
+        <Button layoutX="133.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleDeleteCategory" text="Delete" />
+        <Button layoutX="555.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleCreateMovieButton" text="Create" />
+        <Button layoutX="623.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleEditMovieButton" text="Edit" />
+        <Button layoutX="679.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleDeleteMovieButton" text="Delete" />
     </children>
 </AnchorPane>
