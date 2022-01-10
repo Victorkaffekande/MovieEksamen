@@ -18,21 +18,21 @@ public class CategoryDAO {
     }
 
     public List<Category> getAllCategories() throws IOException {
-        List<Category> allPlaylists = new ArrayList<>();
+        List<Category> allCategories = new ArrayList<>();
         try (Connection connection = databaseConnector.getConnection()) {
-            String sqlStatement = "SELECT * FROM Playlist";
+            String sqlStatement = "SELECT * FROM Category";
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sqlStatement);
             while (rs.next()) {
                 String name = rs.getString("Name");
                 int id = rs.getInt("Id");
                 Category category = new Category(id, name);
-                allPlaylists.add(category);
+                allCategories.add(category);
             }
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-        return allPlaylists;
+        return allCategories;
     }
 
     public Category createCategory(String categoryName) throws SQLServerException {

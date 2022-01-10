@@ -5,6 +5,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.CategoryDAO;
 
 import java.io.IOException;
+import java.util.List;
 
 public class CategoryManager  {
     private CategoryDAO categoryDAO;
@@ -13,8 +14,8 @@ public class CategoryManager  {
         categoryDAO = new CategoryDAO();
     }
 
-    public void getAllObjects() throws IOException {
-        categoryDAO.getAllCategories();
+    public List getAllObjects() throws IOException {
+       return categoryDAO.getAllCategories();
     }
 
     public void create(String name ) throws SQLServerException {

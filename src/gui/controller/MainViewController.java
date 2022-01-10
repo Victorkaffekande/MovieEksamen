@@ -1,8 +1,11 @@
 package gui.controller;
 
+import be.Category;
 import be.Movie;
+import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -15,24 +18,29 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
-    public TableView allMoviesTable;
+    public TableView<Movie> allMoviesTable;
 
-    public TableColumn allMoviesNameColumn;
+    public TableColumn<Movie, String> allMoviesNameColumn;
 
-    public TableColumn allMoviesRatingColumn;
+    public TableColumn<Movie, Float> allMoviesRatingColumn;
 
-    public TableView moviesTable;
+    public TableView<Movie> moviesTable;
 
-    public TableColumn moviesNameColumn;
+    public TableColumn<Movie, String> moviesNameColumn;
 
-    public TableColumn moviesRatingColumn;
+    public TableColumn<Movie, Float> moviesRatingColumn;
 
     public TextField filterInput;
+    public ListView<Category> categoryListView;
 
 
-    private MovieModel movieModel = new MovieModel();
+    private MovieModel movieModel;
+    private CategoryModel categoryModel;
 
     public MainViewController() throws IOException {
+        movieModel = new MovieModel();
+        categoryModel = new CategoryModel();
+
 
         moviesTable = new TableView();
         moviesNameColumn = new TableColumn();
@@ -42,7 +50,7 @@ public class MainViewController implements Initializable {
         allMoviesNameColumn = new TableColumn();
         allMoviesRatingColumn = new TableColumn();
 
-
+        categoryListView = new ListView();
     }
 
 
@@ -51,8 +59,10 @@ public class MainViewController implements Initializable {
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         allMoviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
 
+
         try {
             allMoviesTable.setItems(movieModel.getObservableMovies());
+            categoryListView.setItems(categoryModel.getObservableCategories());
         } catch (IOException e) {
             e.printStackTrace();
         }
