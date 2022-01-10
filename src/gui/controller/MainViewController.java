@@ -6,10 +6,7 @@ import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -94,8 +91,22 @@ public class MainViewController implements Initializable {
     }
 
     public void handleDeleteMovieButton(ActionEvent actionEvent) {
+        if (allMoviesTable.getSelectionModel().getSelectedItem() == null){
+            error("Please choose a movie to delete");
+        }
+        else {
+            movieModel.deleteMovie(allMoviesTable.getSelectionModel().getSelectedItem());
+            allMoviesTable.getItems().remove(allMoviesTable.getSelectionModel().getSelectedItem());
+
+        }
     }
 
     public void handleButtonPlay(ActionEvent actionEvent) {
+    } 
+
+    private void error(String text){
+        Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.OK);
+        alert.showAndWait();
     }
+
 }

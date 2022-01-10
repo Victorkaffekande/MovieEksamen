@@ -28,8 +28,8 @@ public class MovieModel {
     public void createMovie(String name, float rating, String fileLink, Timestamp lastView) throws SQLException {
         movieManager.create(name, rating, fileLink, lastView);
     }
-    public void removeMovie(Movie movie){
-        movieManager.remove(movie);
+    public void deleteMovie(Movie movie){
+        movieManager.delete(movie);
     }
 
     public ObservableList<Movie> getObservableMovies() throws IOException {

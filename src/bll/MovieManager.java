@@ -29,7 +29,7 @@ public class MovieManager {
         movieDAO.createMovie(name, rating, fileLink, lastView);
     }
 
-    public void remove(Movie movie) {
+    public void delete(Movie movie) {
         movieDAO.deleteMovie(movie);
     }
 
