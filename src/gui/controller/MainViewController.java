@@ -86,6 +86,13 @@ public class MainViewController implements Initializable {
     }
 
     public void handleDeleteCategory(ActionEvent actionEvent) {
+        if (categoryListView.getSelectionModel().getSelectedItem() == null){
+            error("Please choose a category to delete");
+        }
+        else {
+            categoryModel.deleteCategory(categoryListView.getSelectionModel().getSelectedItem());
+            categoryListView.getItems().remove(categoryListView.getSelectionModel().getSelectedItem());
+        }
     }
 
     public void handleCreateMovieButton(ActionEvent actionEvent) throws IOException {
@@ -111,7 +118,7 @@ public class MainViewController implements Initializable {
     }
 
     public void handleButtonPlay(ActionEvent actionEvent) {
-    } 
+    }
 
     private void error(String text){
         Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.OK);

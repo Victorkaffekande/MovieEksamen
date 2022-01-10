@@ -22,7 +22,7 @@ public class CategoryManager  {
         categoryDAO.createCategory(name);
     }
 
-    public void remove(Category category) {
+    public void delete(Category category) {
         categoryDAO.deleteCategory(category);
     }
 
