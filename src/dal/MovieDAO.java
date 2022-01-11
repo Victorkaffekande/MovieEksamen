@@ -110,11 +110,13 @@ public class MovieDAO {
 
     public void updateMovie(Movie movieUpdate) throws SQLException{
         try (Connection connection = databaseConnector.getConnection()) {
-            String sql = "UPDATE Movie SET Name=?, Rating=?, filelink=? WHERE Id=?;";
+            String sql = "UPDATE Movie SET Name=?, Rating=?, filelink=?, lastview=? WHERE Id=?;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, movieUpdate.getName());
             ps.setFloat(2, movieUpdate.getRating());
             ps.setString(3, movieUpdate.getFileLink());
+            ps.setTimestamp(4, movieUpdate.getLastView());
+            ps.setInt(5, movieUpdate.getId());
             if (ps.executeUpdate() != 1) {
                 throw new Exception("Could not update Movie");
             }

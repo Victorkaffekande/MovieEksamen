@@ -8,7 +8,6 @@
 .list-view{
     -fx-background-color: "Lightblue";
     -fx-text-fill: "Black";
-    
 }
 .list-cell{
     -fx-background-color: "Lightblue";
@@ -23,9 +22,7 @@
 }
 .table-cell{
     -fx-background-color: "Lightblue";
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-
-
+}
 .button{
     -fx-background-color: #8fa0a6;
     -fx-text-fill: "White";
