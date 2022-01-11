@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.ToDoubleBiFunction;
 
 public class Filter {
@@ -19,6 +20,7 @@ public class Filter {
 
     /**
      * compares songList with a String from query
+     *
      * @param movieList
      * @param query
      * @return a list of songs containing the String
@@ -26,30 +28,44 @@ public class Filter {
     public List<Movie> search(List<Movie> movieList, String query) throws SQLException {
         List<Movie> result = new ArrayList<>();
 
-        for (Movie movie : movieList)
-        {
-            if (compareToTitle(movie, query))
-            {
+        for (Movie movie : movieList) {
+            if (compareToTitle(movie, query) || compareRating(movie, query)) {
                 result.add(movie);
             }
         }
         return result;
     }
 
-    private boolean compareToTitle(Movie movie, String query)
-    {
+    private boolean compareToTitle(Movie movie, String query) {
         return movie.getName().toLowerCase().contains(query.toLowerCase());
+    }
+
+    private boolean compareRating(Movie movie, String query) {
+        //finds all the numbers in the input string
+        char[] chars = query.toLowerCase(Locale.ROOT).toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char c : chars) {
+            if (Character.isDigit(c) || c == '.') {
+                stringBuilder.append(c);
+            }
+        }
+        //compares movie rating to the input
+        if (!stringBuilder.isEmpty()){
+            double rating = Double.parseDouble(stringBuilder.toString());
+            return movie.getRating() >= rating;
+        }
+        return false;
     }
 
     ///TODO fix category search
     private boolean containedInCategory(String query) throws SQLException {
         int[] categoryIds = getCategoryIds(query);
-        if (categoryIds != null){
-            try(Connection connection = databaseConnector.getConnection()){
+        if (categoryIds != null) {
+            try (Connection connection = databaseConnector.getConnection()) {
                 StringBuilder stringBuilder = new StringBuilder("SELECT * FROM CatMovie WHERE CategoryId =");
-                for(int i =0; i<categoryIds.length ;i++){
+                for (int i = 0; i < categoryIds.length; i++) {
                     stringBuilder.append(categoryIds[i]);
-                    if (i != categoryIds.length-1){
+                    if (i != categoryIds.length - 1) {
                         stringBuilder.append("OR");
                     }
                 }
@@ -58,7 +74,7 @@ public class Filter {
                 String sql = stringBuilder.toString();
                 Statement ps = connection.createStatement();
                 ResultSet rs = ps.executeQuery(sql);
-                while (rs.next()){
+                while (rs.next()) {
 
                 }
             } catch (SQLException throwables) {
