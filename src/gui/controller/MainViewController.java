@@ -159,4 +159,7 @@ public class MainViewController implements Initializable {
         Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
         categoryModel.addMovieToCategory(selectedCategory, selectedMovie);
     }
+
+    public void handleRadioButton(ActionEvent actionEvent) {
+    }
 }
