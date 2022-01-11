@@ -186,8 +186,10 @@ public class MainViewController implements Initializable {
 
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
         Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
+        java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
+        movie.setLastView(lastview);
         Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
-        Movie movieOtherTable = moviesTable.getSelectionModel().getSelectedItem();
-        Desktop.getDesktop().open(new File(moviePath + movieOtherTable + movieOtherTable.getFileLink()));
+
+
     }
 }
