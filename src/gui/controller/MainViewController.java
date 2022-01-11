@@ -104,11 +104,13 @@ public class MainViewController implements Initializable {
     }
 
     public void handleCreateMovieButton(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("view/CreateMovie.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/CreateMovie.fxml"));
         Stage stage = new Stage();
-        stage.setTitle("Add/Edit Song");
+        stage.setTitle("CreateMovie");
         stage.setScene(new Scene(root));
-        stage.show();
+        stage.showAndWait();
+        moviesTable.getItems().clear();
+        moviesTable.setItems(movieModel.getObservableMovies());
     }
 
     public void handleEditMovieButton(ActionEvent actionEvent) {
