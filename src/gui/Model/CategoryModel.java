@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryModel {
@@ -41,4 +42,9 @@ public class CategoryModel {
     public void addMovieToCategory(Category category, Movie movie){
         categoryManager.addMovieToCategory(category, movie);
     }
+
+    public void updateCategory(Category categoryUpdate) throws SQLException {
+        categoryManager.update(categoryUpdate);
+    }
+
 }

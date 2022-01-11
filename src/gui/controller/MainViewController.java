@@ -95,7 +95,25 @@ public class MainViewController implements Initializable {
         categoryListView.setItems(categoryModel.getObservableCategories());
     }
 
-    public void handleEditCategory(ActionEvent actionEvent) {
+    public void handleEditCategory(ActionEvent actionEvent) throws IOException {
+        Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
+        if (selectedCategory != null) {
+            FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/EditCategory.fxml"));
+            Scene mainWindowScene = null;
+
+            try {
+                mainWindowScene = new Scene(root.load());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            Stage editCategoryStage = new Stage();
+            editCategoryStage.setScene(mainWindowScene);
+            EditCategoryController editCategoryController = root.getController();
+            editCategoryController.setCategory(selectedCategory);
+            editCategoryStage.showAndWait();
+            categoryListView.getItems().clear();
+            categoryListView.setItems(categoryModel.getObservableCategories());
+        }
     }
 
     public void handleDeleteCategory(ActionEvent actionEvent) {

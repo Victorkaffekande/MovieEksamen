@@ -43,7 +43,7 @@ public class EditMovieController {
     txtMovieTitleEdit.setText(movie.getName());
     txtMovieRatingEdit.setText(Float.toString(movie.getRating()));
     txtMovieFilepathEdit.setText(movie.getFileLink());
-}
+    }
 
     public void handleChooseEdit(ActionEvent actionEvent) {
 
