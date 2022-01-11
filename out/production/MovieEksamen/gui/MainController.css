@@ -1,0 +1,36 @@
+.root{
+    -fx-background-color: "Navy";
+
+}
+.label{
+    -fx-font-family: "Franklin Gothic Book";
+    -fx-text-fill: "White";
+}
+.list-view{
+    -fx-background-color: "Lightblue";
+    -fx-text-fill: "Black";
+}
+.table-view{
+    -fx-background-color: "Lightblue";
+    -fx-text-fill: "Black";
+}
+.table-column{
+    -fx-background-color: #8fa0a6;
+    -fx-text-fill: "Black";
+}
+.table-row-cell{
+    -fx-background-color: "Lightblue";
+    -fx-background-insets: 0, 0 0 1 0;
+    
+}
+
+.button{
+    -fx-background-color: #8fa0a6;
+    -fx-text-fill: "White";
+    -fx-font-family: "Franklin Gothic Book";
+}
+.text-field{
+    -fx-background-color: #8fa0a6;
+    -fx-text-fill: "White";
+}
+

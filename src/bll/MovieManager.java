@@ -25,8 +25,8 @@ public class MovieManager {
         return movieDAO.getAllMovies();
     }
 
-    public void create(String name, float rating, String fileLink, Timestamp lastView) throws SQLException {
-        movieDAO.createMovie(name, rating, fileLink, lastView);
+    public void create(String name, float rating, String fileLink) throws SQLException {
+        movieDAO.createMovie(name, rating, fileLink);
     }
 
     public void delete(Movie movie) {
