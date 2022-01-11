@@ -6,6 +6,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.CategoryDAO;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CategoryManager  {
@@ -27,8 +28,8 @@ public class CategoryManager  {
         categoryDAO.deleteCategory(category);
     }
 
-    public void update() {
-
+    public void update(Category categoryUpdate) throws SQLException {
+        categoryDAO.updateCategory(categoryUpdate);
     }
 
     public void addMovieToCategory(Category category, Movie movie){

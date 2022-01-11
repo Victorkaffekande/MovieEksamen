@@ -57,6 +57,19 @@ public class CategoryDAO {
         return new Category(newID, categoryName);
     }
 
+    public void updateCategory(Category categoryUpdate) throws SQLException {
+        try (Connection connection = databaseConnector.getConnection()){
+            String sql = "UPDATE Category SET Name=? WHERE Id = ?;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, categoryUpdate.getName());
+            preparedStatement.setInt(2, categoryUpdate.getId());
+            if (preparedStatement.executeUpdate() != 1) {
+                throw new Exception("Could not update Category");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void deleteCategory(Category categoryDelete) {
         try (Connection connection = databaseConnector.getConnection()) {
