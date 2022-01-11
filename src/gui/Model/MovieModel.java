@@ -44,4 +44,9 @@ public class MovieModel {
         movieList.clear();
         movieList.addAll(result);
     }
+
+    public void updateMovie(Movie movieUpdate) throws SQLException {
+        movieManager.update(movieUpdate);
+    }
+
 }

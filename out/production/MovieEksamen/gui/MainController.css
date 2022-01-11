@@ -1,6 +1,5 @@
 .root{
     -fx-background-color: "Navy";
-
 }
 .label{
     -fx-font-family: "Franklin Gothic Book";
@@ -11,6 +10,9 @@
     -fx-text-fill: "Black";
     
 }
+.list-cell{
+    -fx-background-color: "Lightblue";
+}
 .table-view{
     -fx-background-color: "Lightblue";
     -fx-text-fill: "Black";
@@ -19,11 +21,10 @@
     -fx-background-color: #8fa0a6;
     -fx-text-fill: "Black";
 }
-.table-row-cell{
+.table-cell{
     -fx-background-color: "Lightblue";
     -fx-background-insets: 0, 0 0 1 0;
     -fx-
-}
 
 .button{
     -fx-background-color: #8fa0a6;
@@ -32,6 +33,9 @@
 }
 .text-field{
     -fx-background-color: #8fa0a6;
+    -fx-text-fill: "White";
+}
+.check-box{
     -fx-text-fill: "White";
 }
 
