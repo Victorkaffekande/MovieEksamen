@@ -111,8 +111,27 @@ public class MainViewController implements Initializable {
         stage.show();
     }
 
-    public void handleEditMovieButton(ActionEvent actionEvent) {
+    public void handleEditMovieButton(ActionEvent actionEvent) throws IOException {
+        Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null) {
+            FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/EditMovie.fxml"));
+            Scene mainWindowScene = null;
+
+            try {
+                mainWindowScene = new Scene(root.load());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            Stage editMovieStage = new Stage();
+            editMovieStage.setScene(mainWindowScene);
+            EditMovieController editMovieController = root.getController();
+            editMovieController.setMovie(selectedMovie);
+            editMovieStage.showAndWait();
+            allMoviesTable.getItems().clear();
+            allMoviesTable.setItems(movieModel.getObservableMovies());
+        }
     }
+
 
     public void handleDeleteMovieButton(ActionEvent actionEvent) {
         if (allMoviesTable.getSelectionModel().getSelectedItem() == null){
