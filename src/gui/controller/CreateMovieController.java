@@ -27,10 +27,6 @@ public class CreateMovieController {
         mainViewController = new MainViewController();
         movieModel = new MovieModel();
     }
-    public void cancel() {
-        Stage stage = (Stage) cancelBtn.getScene().getWindow();
-        stage.close();
-    }
 
     public void saveMovieBtn(ActionEvent actionEvent) throws SQLException {
         movieModel.createMovie(movieTitleTxt.getText(), Float.parseFloat(movieRatingTxt.getText()),  movieFilePathTxt.getText());
@@ -48,5 +44,10 @@ public class CreateMovieController {
         if (file != null) {
             movieFilePathTxt.setText( file.getName());
         }
+    }
+
+    public void handleCancelBtn(ActionEvent actionEvent) {
+        Stage stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
     }
 }
