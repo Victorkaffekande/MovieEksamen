@@ -6,6 +6,9 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -47,7 +50,7 @@
                 <Font size="18.0" />
             </font>
         </Text>
-        <Button layoutX="290.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleButtonPlay" text="Play">
+        <Button layoutX="298.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleButtonPlay" opacity="0.0" prefHeight="44.0" prefWidth="42.0" text="Play">
             <font>
                 <Font size="18.0" />
             </font>
@@ -58,5 +61,13 @@
         <Button layoutX="555.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleCreateMovieButton" text="Create" />
         <Button layoutX="623.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleEditMovieButton" text="Edit" />
         <Button layoutX="679.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleDeleteMovieButton" text="Delete" />
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="293.0" layoutY="32.0" pickOnBounds="true">
+         <image>
+            <Image url="https://i.ibb.co/jZQ8kK5/play-Pause-Button2.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
     </children>
 </AnchorPane>
