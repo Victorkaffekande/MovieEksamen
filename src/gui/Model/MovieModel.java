@@ -25,8 +25,8 @@ public class MovieModel {
 
     }
 
-    public void createMovie(String name, float rating, String fileLink, Timestamp lastView) throws SQLException {
-        movieManager.create(name, rating, fileLink, lastView);
+    public void createMovie(String name, float rating, String fileLink) throws SQLException {
+        movieManager.create(name, rating, fileLink);
     }
     public void deleteMovie(Movie movie){
         movieManager.delete(movie);

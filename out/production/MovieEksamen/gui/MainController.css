@@ -1,5 +1,5 @@
 .root{
-    -fx-background-image: <Image url="@../images/blue_background.png" /> ;
+    -fx-background-color: "Navy";
 }
 .label{
     -fx-font-family: "Franklin Gothic Book";
@@ -30,6 +30,9 @@
 }
 .text-field{
     -fx-background-color: #8fa0a6;
+    -fx-text-fill: "White";
+}
+.check-box{
     -fx-text-fill: "White";
 }
 
