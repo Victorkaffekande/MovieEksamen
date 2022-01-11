@@ -44,4 +44,5 @@ public class MovieManager {
     public List<Movie> getSearchedMovies(List<Movie> movieList, String query) throws SQLException {
         return filter.search(movieList, query);
     }
+
 }

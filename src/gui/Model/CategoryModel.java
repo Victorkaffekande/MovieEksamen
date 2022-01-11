@@ -1,6 +1,7 @@
 package gui.Model;
 
 import be.Category;
+import be.Movie;
 import bll.CategoryManager;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
@@ -35,5 +36,9 @@ public class CategoryModel {
 
     public void deleteCategory(Category category){
         categoryManager.delete(category);
+    }
+
+    public void addMovieToCategory(Category category, Movie movie){
+        categoryManager.addMovieToCategory(category, movie);
     }
 }

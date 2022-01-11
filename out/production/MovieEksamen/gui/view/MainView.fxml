@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="452.0" prefWidth="745.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
+<AnchorPane prefHeight="452.0" prefWidth="745.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
     <children>
-        <TableView fx:id="allMoviesTable" layoutX="487.0" layoutY="118.0" prefHeight="285.0" prefWidth="243.0">
+        <TableView fx:id="allMoviesTable" layoutX="487.0" layoutY="118.0" prefHeight="285.0" prefWidth="243.0" stylesheets="@../MainController.css">
             <columns>
                 <TableColumn fx:id="allMoviesNameColumn" prefWidth="156.0" text="Name" />
                 <TableColumn fx:id="allMoviesRatingColumn" prefWidth="86.40001220703124" text="Rating" />
@@ -68,5 +68,6 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Button layoutX="305.0" layoutY="403.0" mnemonicParsing="false" onAction="#addMovieToCategoryBtn" text="Add" />
     </children>
 </AnchorPane>

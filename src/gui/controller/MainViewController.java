@@ -135,4 +135,9 @@ public class MainViewController implements Initializable {
         alert.showAndWait();
     }
 
+    public void addMovieToCategoryBtn(ActionEvent actionEvent) {
+        Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
+        Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
+        categoryModel.addMovieToCategory(selectedCategory, selectedMovie);
+    }
 }

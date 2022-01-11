@@ -1,6 +1,7 @@
 package bll;
 
 import be.Category;
+import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.CategoryDAO;
 
@@ -28,5 +29,9 @@ public class CategoryManager  {
 
     public void update() {
 
+    }
+
+    public void addMovieToCategory(Category category, Movie movie){
+        categoryDAO.addMovieToCategory(category, movie);
     }
 }
