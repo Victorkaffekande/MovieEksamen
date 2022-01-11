@@ -10,9 +10,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -39,6 +42,8 @@ public class MainViewController implements Initializable {
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+
+    private String moviePath = "Movies/";
 
     public MainViewController() throws IOException {
         movieModel = new MovieModel();
@@ -146,8 +151,6 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public void handleButtonPlay(ActionEvent actionEvent) {
-    }
 
     private void error(String text){
         Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.OK);
@@ -156,10 +159,17 @@ public class MainViewController implements Initializable {
 
     public void addMovieToCategoryBtn(ActionEvent actionEvent) {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
-        Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
+        Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
         categoryModel.addMovieToCategory(selectedCategory, selectedMovie);
     }
 
     public void handleRadioButton(ActionEvent actionEvent) {
+    }
+
+    public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
+        Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
+        Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+        Movie movieOtherTable = moviesTable.getSelectionModel().getSelectedItem();
+        Desktop.getDesktop().open(new File(moviePath + movieOtherTable + movieOtherTable.getFileLink()));
     }
 }

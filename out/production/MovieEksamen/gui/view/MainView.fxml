@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="745.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="745.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
     <children>
       <ImageView fitHeight="450.0" fitWidth="750.0" pickOnBounds="true">
          <image>
@@ -62,7 +62,7 @@
         <Button layoutX="555.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleCreateMovieButton" text="Create" />
         <Button layoutX="623.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleEditMovieButton" text="Edit" />
         <Button layoutX="679.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleDeleteMovieButton" text="Delete" />
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="293.0" layoutY="32.0" pickOnBounds="true">
+      <ImageView disable="true" fitHeight="50.0" fitWidth="50.0" layoutX="293.0" layoutY="32.0" pickOnBounds="true">
          <image>
             <Image url="https://i.ibb.co/jZQ8kK5/play-Pause-Button2.png" />
          </image>
@@ -75,7 +75,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="305.0" layoutY="404.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="305.0" layoutY="404.0" mnemonicParsing="false" onAction="#addMovieToCategoryBtn" text="Add" />
       <RadioButton fx:id="radioButtonTitle" layoutX="531.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Title">
          <toggleGroup>
             <ToggleGroup fx:id="searchFilter" />
