@@ -46,5 +46,13 @@ public class CategoryModel {
     public void updateCategory(Category categoryUpdate) throws SQLException {
         categoryManager.update(categoryUpdate);
     }
-
+    public ObservableList<Movie> getAllMoviesFromCategoriesObservable(Category category){
+        List<Movie> tempMovieList;
+        ObservableList<Movie> movies = FXCollections.observableArrayList();
+        tempMovieList = this.categoryManager.getALlMoviesFromCategories(category);
+        for(Movie movieList: tempMovieList){
+            movies.add(movieList);
+        }
+    return movies;
+    }
 }

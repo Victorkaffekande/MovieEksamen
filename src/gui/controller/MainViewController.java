@@ -4,6 +4,7 @@ import be.Category;
 import be.Movie;
 import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -190,6 +191,11 @@ public class MainViewController implements Initializable {
         movie.setLastView(lastview);
         Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
 
+    }
 
+    public void lookAtCategoryMovies(){
+        Category category = categoryListView.getSelectionModel().getSelectedItem();
+        ObservableList<Movie> observableList = categoryModel.getAllMoviesFromCategoriesObservable(category);
+        moviesTable.setItems(observableList);
     }
 }

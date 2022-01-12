@@ -57,4 +57,9 @@ public class Movie {
     public void setLastView(java.sql.Timestamp lastView) {
         this.lastView = lastView;
     }
+
+    @Override
+    public String toString() {
+        return name + rating;
+    }
 }
