@@ -9,6 +9,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.function.ToDoubleBiFunction;
 
 public class Filter {
@@ -25,21 +26,32 @@ public class Filter {
      * @param query
      * @return a list of songs containing the String
      */
-    public List<Movie> search(List<Movie> movieList, String query) throws SQLException {
+    public List<Movie> search(List<Movie> movieList, String query, String filterType) throws SQLException {
         List<Movie> result = new ArrayList<>();
-
         for (Movie movie : movieList) {
-            if (compareToTitle(movie, query) || compareRating(movie, query)) {
-                result.add(movie);
+            if (Objects.equals(filterType,"movieFilter")){
+                if (compareToTitle(movie, query)) {
+                    result.add(movie);
+                }
+            }
+            if (Objects.equals(filterType,"ratingFilter")){
+                if (Objects.equals(query, "")){
+                    query = "0";
+                }
+                if(compareRating(movie,query)){
+                    result.add(movie);
+                }
             }
         }
+
         return result;
     }
 
+    
     private boolean compareToTitle(Movie movie, String query) {
         return movie.getName().toLowerCase().contains(query.toLowerCase());
     }
-
+    
     private boolean compareRating(Movie movie, String query) {
         //finds all the numbers in the input string
         char[] chars = query.toLowerCase(Locale.ROOT).toCharArray();

@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -26,6 +27,12 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
+    @FXML
+    private RadioButton radioButtonTitle;
+    @FXML
+    private RadioButton radioButtonCategory;
+    @FXML
+    private RadioButton radioButtonRating;
     @FXML
     private TableView<Movie> allMoviesTable;
     @FXML
@@ -48,6 +55,7 @@ public class MainViewController implements Initializable {
     private CategoryModel categoryModel;
 
     private String moviePath = "Movies/";
+    private String filterType;
 
     public MainViewController() throws IOException {
         movieModel = new MovieModel();
@@ -58,7 +66,7 @@ public class MainViewController implements Initializable {
         moviesNameColumn = new TableColumn();
         moviesRatingColumn = new TableColumn();
 
-        allMoviesTable= new TableView();
+        allMoviesTable = new TableView();
         allMoviesNameColumn = new TableColumn();
         allMoviesRatingColumn = new TableColumn();
 
@@ -84,9 +92,11 @@ public class MainViewController implements Initializable {
         }
 
         //movie search
+        radioButtonTitle.setSelected(true);
+        filterType = "movieFilter";
         filterInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
-                movieModel.searchMovie(newValue);
+                movieModel.searchMovie(newValue,filterType);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -125,10 +135,9 @@ public class MainViewController implements Initializable {
     }
 
     public void handleDeleteCategory(ActionEvent actionEvent) {
-        if (categoryListView.getSelectionModel().getSelectedItem() == null){
+        if (categoryListView.getSelectionModel().getSelectedItem() == null) {
             error("Please choose a category to delete");
-        }
-        else {
+        } else {
             categoryModel.deleteCategory(categoryListView.getSelectionModel().getSelectedItem());
             categoryListView.getItems().remove(categoryListView.getSelectionModel().getSelectedItem());
         }
@@ -140,8 +149,8 @@ public class MainViewController implements Initializable {
         stage.setTitle("CreateMovie");
         stage.setScene(new Scene(root));
         stage.showAndWait();
-        moviesTable.getItems().clear();
-        moviesTable.setItems(movieModel.getObservableMovies());
+        allMoviesTable.getItems().clear();
+        allMoviesTable.setItems(movieModel.getObservableMovies());
     }
 
     public void handleEditMovieButton(ActionEvent actionEvent) throws IOException {
@@ -167,10 +176,9 @@ public class MainViewController implements Initializable {
 
 
     public void handleDeleteMovieButton(ActionEvent actionEvent) {
-        if (allMoviesTable.getSelectionModel().getSelectedItem() == null){
+        if (allMoviesTable.getSelectionModel().getSelectedItem() == null) {
             error("Please choose a movie to delete");
-        }
-        else {
+        } else {
             movieModel.deleteMovie(allMoviesTable.getSelectionModel().getSelectedItem());
             allMoviesTable.getItems().remove(allMoviesTable.getSelectionModel().getSelectedItem());
 
@@ -178,7 +186,7 @@ public class MainViewController implements Initializable {
     }
 
 
-    private void error(String text){
+    private void error(String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.OK);
         alert.showAndWait();
     }
@@ -190,19 +198,63 @@ public class MainViewController implements Initializable {
     }
 
     public void handleRadioButton(ActionEvent actionEvent) {
+        if (radioButtonTitle.isSelected()){
+            filterType = "movieFilter";
+        } else if(radioButtonRating.isSelected()){
+            filterType = "ratingFilter";
+        }else if (radioButtonCategory.isSelected()){
+
+        }
     }
 
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
-        Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
-        java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
-        movie.setLastView(lastview);
-        Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+        if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {
+            Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
+            Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+        } else if (moviesTable.getSelectionModel().getSelectedItem() != null) {
+            Movie movie2 = moviesTable.getSelectionModel().getSelectedItem();
+            Desktop.getDesktop().open(new File(moviePath + movie2.getFileLink()));
+        } else
+            error("Please select a movie");
 
     }
 
-    public void lookAtCategoryMovies(){
+    public void lookAtCategoryMovies() {
         Category category = categoryListView.getSelectionModel().getSelectedItem();
         ObservableList<Movie> observableList = categoryModel.getAllMoviesFromCategoriesObservable(category);
         moviesTable.setItems(observableList);
+    }
+
+    public void deleteMovieFromCategory(ActionEvent actionEvent) {
+        Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
+        Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
+        categoryModel.deleteMovieFromCategory(selectedCategory, selectedMovie);
+    }
+
+    public void handleMovieTableClicked(MouseEvent mouseEvent) {
+        allMoviesTable.getSelectionModel().clearSelection();
+    }
+
+    public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
+        Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null) {
+            FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/MoviePlay.fxml"));
+            Scene mainWindowScene = null;
+
+            try {
+                mainWindowScene = new Scene(root.load());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            Stage musicPlaystage = new Stage();
+            musicPlaystage.setScene(mainWindowScene);
+            MoviePlayController moviePlayController = root.getController();
+            moviePlayController.setMovieUrl();
+            musicPlaystage.setTitle("MoviePlay");
+            musicPlaystage.show();
+        }
+    }
+
+    public void allMoviesTableClicked(MouseEvent mouseEvent) {
     }
 }

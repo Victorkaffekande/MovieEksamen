@@ -55,4 +55,7 @@ public class CategoryModel {
         }
     return movies;
     }
+    public void deleteMovieFromCategory(Category category, Movie movie){
+        categoryManager.deleteMovieFromCategory(category, movie);
+    }
 }
