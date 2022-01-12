@@ -205,4 +205,10 @@ public class MainViewController implements Initializable {
         ObservableList<Movie> observableList = categoryModel.getAllMoviesFromCategoriesObservable(category);
         moviesTable.setItems(observableList);
     }
+
+    public void deleteMovieFromCategory(ActionEvent actionEvent) {
+        Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
+        Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
+        categoryModel.deleteMovieFromCategory(selectedCategory, selectedMovie);
+    }
 }

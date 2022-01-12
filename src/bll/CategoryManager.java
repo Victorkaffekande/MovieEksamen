@@ -38,4 +38,8 @@ public class CategoryManager  {
     public List<Movie> getALlMoviesFromCategories(Category category){
       return categoryDAO.getAllMoviesFromCategory(category);
     }
+
+    public void deleteMovieFromCategory(Category category, Movie movie){
+        categoryDAO.deleteMovieFromCategory(category, movie);
+    }
 }

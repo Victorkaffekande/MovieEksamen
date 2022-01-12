@@ -82,5 +82,6 @@
          </toggleGroup></RadioButton>
       <RadioButton fx:id="radioButtonCategory" layoutX="580.0" layoutY="73.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Category" toggleGroup="$searchFilter" />
       <RadioButton fx:id="radioButtonRating" layoutX="651.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Rating" toggleGroup="$searchFilter" />
+      <Button layoutX="373.0" layoutY="403.0" mnemonicParsing="false" onAction="#deleteMovieFromCategory" text="Delete" />
     </children>
 </AnchorPane>
