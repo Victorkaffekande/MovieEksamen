@@ -40,6 +40,14 @@ public class MovieDAO {
         return allMovies;
     }
 
+    /**
+     *
+     *          createMovie metoden opretter et film objekt i vores
+     *          Movie Table
+     * @return
+     * @throws SQLException
+     */
+
     public Movie createMovie(String name, float rating, String filelink) throws SQLException {
         int Id = -1;
         java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
@@ -65,6 +73,11 @@ public class MovieDAO {
         return new Movie(Id, name, rating, filelink, lastview);
     }
 
+    /**
+     *
+     * @param movieDelete Denne metode sletter valgte movie objekt
+     *                    fra databasen.
+     */
     public void deleteMovie(Movie movieDelete) {
         try (Connection connection = databaseConnector.getConnection()) {
             String sql = "DELETE from Movie WHERE Id = ?";
@@ -108,6 +121,12 @@ public class MovieDAO {
         return allMovies;
     }
 
+    /**
+     *
+     * @param movieUpdate Metoden her bruges, når man vil redigere
+     *                    et film objekt ved brug af SQL UPDATE statement.
+     * @throws SQLException
+     */
     public void updateMovie(Movie movieUpdate) throws SQLException{
         try (Connection connection = databaseConnector.getConnection()) {
             String sql = "UPDATE Movie SET Name=?, Rating=?, filelink=?, lastview=? WHERE Id=?;";
