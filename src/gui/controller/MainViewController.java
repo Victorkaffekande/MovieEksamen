@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.awt.*;
@@ -193,10 +194,20 @@ public class MainViewController implements Initializable {
     }
 
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
-        Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
-        java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
-        movie.setLastView(lastview);
-        Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+        if (allMoviesTable.getSelectionModel().getSelectedItem() != null){
+            Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
+            Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+        }
+        else if (moviesTable.getSelectionModel().getSelectedItem() != null){
+            Movie movie2 = moviesTable.getSelectionModel().getSelectedItem();
+            Desktop.getDesktop().open(new File(moviePath + movie2.getFileLink()));
+        }
+        else
+            error("Please select a movie");
+
+        //java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
+        //movie.setLastView(lastview);
+
 
     }
 
@@ -204,5 +215,9 @@ public class MainViewController implements Initializable {
         Category category = categoryListView.getSelectionModel().getSelectedItem();
         ObservableList<Movie> observableList = categoryModel.getAllMoviesFromCategoriesObservable(category);
         moviesTable.setItems(observableList);
+    }
+
+    public void handleMovieTableClicked(MouseEvent mouseEvent) {
+        allMoviesTable.getSelectionModel().clearSelection();
     }
 }
