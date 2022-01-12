@@ -3,6 +3,7 @@ package gui.controller;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import gui.Model.CategoryModel;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -10,8 +11,9 @@ import java.io.IOException;
 
 public class CreateCategoryController {
 
-    public TextField nameInput;
-    CategoryModel categoryModel;
+    @FXML
+    private TextField nameInput;
+    private CategoryModel categoryModel;
 
     public CreateCategoryController() throws IOException {
         categoryModel = new CategoryModel();

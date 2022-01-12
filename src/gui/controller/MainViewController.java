@@ -6,6 +6,7 @@ import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -25,20 +26,22 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
-    public TableView<Movie> allMoviesTable;
-
-    public TableColumn<Movie, String> allMoviesNameColumn;
-
-    public TableColumn<Movie, Float> allMoviesRatingColumn;
-
-    public TableView<Movie> moviesTable;
-
-    public TableColumn<Movie, String> moviesNameColumn;
-
-    public TableColumn<Movie, Float> moviesRatingColumn;
-
-    public TextField filterInput;
-    public ListView<Category> categoryListView;
+    @FXML
+    private TableView<Movie> allMoviesTable;
+    @FXML
+    private TableColumn<Movie, String> allMoviesNameColumn;
+    @FXML
+    private TableColumn<Movie, Float> allMoviesRatingColumn;
+    @FXML
+    private TableView<Movie> moviesTable;
+    @FXML
+    private TableColumn<Movie, String> moviesNameColumn;
+    @FXML
+    private TableColumn<Movie, Float> moviesRatingColumn;
+    @FXML
+    private TextField filterInput;
+    @FXML
+    private ListView<Category> categoryListView;
 
 
     private MovieModel movieModel;

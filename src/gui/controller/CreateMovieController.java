@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class CreateMovieController {
-    public Button cancelBtn;
+    @FXML
+    private Button cancelBtn;
     @FXML
     private TextField movieTitleTxt;
     @FXML
