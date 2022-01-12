@@ -59,7 +59,7 @@ public class MainViewController implements Initializable {
         moviesNameColumn = new TableColumn();
         moviesRatingColumn = new TableColumn();
 
-        allMoviesTable= new TableView();
+        allMoviesTable = new TableView();
         allMoviesNameColumn = new TableColumn();
         allMoviesRatingColumn = new TableColumn();
 
@@ -126,10 +126,9 @@ public class MainViewController implements Initializable {
     }
 
     public void handleDeleteCategory(ActionEvent actionEvent) {
-        if (categoryListView.getSelectionModel().getSelectedItem() == null){
+        if (categoryListView.getSelectionModel().getSelectedItem() == null) {
             error("Please choose a category to delete");
-        }
-        else {
+        } else {
             categoryModel.deleteCategory(categoryListView.getSelectionModel().getSelectedItem());
             categoryListView.getItems().remove(categoryListView.getSelectionModel().getSelectedItem());
         }
@@ -168,10 +167,9 @@ public class MainViewController implements Initializable {
 
 
     public void handleDeleteMovieButton(ActionEvent actionEvent) {
-        if (allMoviesTable.getSelectionModel().getSelectedItem() == null){
+        if (allMoviesTable.getSelectionModel().getSelectedItem() == null) {
             error("Please choose a movie to delete");
-        }
-        else {
+        } else {
             movieModel.deleteMovie(allMoviesTable.getSelectionModel().getSelectedItem());
             allMoviesTable.getItems().remove(allMoviesTable.getSelectionModel().getSelectedItem());
 
@@ -179,7 +177,7 @@ public class MainViewController implements Initializable {
     }
 
 
-    private void error(String text){
+    private void error(String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.OK);
         alert.showAndWait();
     }
@@ -194,20 +192,18 @@ public class MainViewController implements Initializable {
     }
 
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
-        if (allMoviesTable.getSelectionModel().getSelectedItem() != null){
+        if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
             Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
-        }
-        else if (moviesTable.getSelectionModel().getSelectedItem() != null){
+        } else if (moviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie2 = moviesTable.getSelectionModel().getSelectedItem();
             Desktop.getDesktop().open(new File(moviePath + movie2.getFileLink()));
-        }
-        else
+        } else
             error("Please select a movie");
 
     }
 
-    public void lookAtCategoryMovies(){
+    public void lookAtCategoryMovies() {
         Category category = categoryListView.getSelectionModel().getSelectedItem();
         ObservableList<Movie> observableList = categoryModel.getAllMoviesFromCategoriesObservable(category);
         moviesTable.setItems(observableList);
@@ -224,10 +220,22 @@ public class MainViewController implements Initializable {
     }
 
     public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/MoviePlay.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("MoviePlay");
-        stage.setScene(new Scene(root));
-        stage.show();
+        Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
+        if (selectedMovie != null) {
+            FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/MoviePlay.fxml"));
+            Scene mainWindowScene = null;
+
+            try {
+                mainWindowScene = new Scene(root.load());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            Stage musicPlaystage = new Stage();
+            musicPlaystage.setScene(mainWindowScene);
+            MoviePlayController moviePlayController = root.getController();
+            moviePlayController.setMovieUrl();
+            musicPlaystage.setTitle("MoviePlay");
+            musicPlaystage.show();
+        }
     }
 }
