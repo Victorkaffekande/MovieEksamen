@@ -144,6 +144,20 @@ public class MovieDAO {
         }
     }
 
+    public void updateMovieTime(Movie movie) throws SQLServerException {
+        java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
+        try(Connection connection = databaseConnector.getConnection()){
+            String sql = "UPDATE MOVIE SET lastview=? WHERE Id=?;";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setTimestamp(1, lastview);
+            ps.setInt(2, movie.getId());
+            if(ps.executeUpdate() != 1){
+                throw new Exception("Could not update movie time");
+            }
+        } catch (Exception throwables) {
+            throwables.printStackTrace();
+        }
+    }
     public static void main(String[] args) throws IOException, SQLException {
         MovieDAO movieDAO = new MovieDAO();
     }

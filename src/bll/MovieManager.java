@@ -3,6 +3,7 @@ package bll;
 import be.Category;
 import be.Movie;
 import bll.util.Filter;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.MovieDAO;
 import javafx.collections.ObservableList;
 
@@ -44,5 +45,7 @@ public class MovieManager {
     public List<Movie> getSearchedMovies(List<Movie> movieList, String query, String filterType) throws SQLException {
         return filter.search(movieList, query, filterType);
     }
-
+    public void updateMovieTime(Movie movie) throws SQLServerException {
+        movieDAO.updateMovieTime(movie);
+    }
 }

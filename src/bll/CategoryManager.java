@@ -42,4 +42,5 @@ public class CategoryManager  {
     public void deleteMovieFromCategory(Category category, Movie movie){
         categoryDAO.deleteMovieFromCategory(category, movie);
     }
+
 }

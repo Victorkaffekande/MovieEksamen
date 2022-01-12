@@ -2,6 +2,7 @@ package gui.Model;
 
 import be.Movie;
 import bll.MovieManager;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -47,6 +48,9 @@ public class MovieModel {
 
     public void updateMovie(Movie movieUpdate) throws SQLException {
         movieManager.update(movieUpdate);
+    }
+    public void updateMovieTime(Movie movie) throws SQLServerException {
+        movieManager.updateMovieTime(movie);
     }
 
 }

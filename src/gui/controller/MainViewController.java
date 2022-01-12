@@ -2,6 +2,7 @@ package gui.controller;
 
 import be.Category;
 import be.Movie;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
 import javafx.collections.ObservableList;
@@ -26,7 +27,10 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
-
+    @FXML
+    private TableColumn<Movie, String> moviesLastViewCol;
+    @FXML
+    private TableColumn<Movie, String> allMoviesLastViewCol;
     @FXML
     private RadioButton radioButtonTitle;
     @FXML
@@ -69,6 +73,7 @@ public class MainViewController implements Initializable {
         allMoviesTable = new TableView();
         allMoviesNameColumn = new TableColumn();
         allMoviesRatingColumn = new TableColumn();
+        allMoviesLastViewCol = new TableColumn();
 
         categoryListView = new ListView();
     }
@@ -78,9 +83,11 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         allMoviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
+        allMoviesLastViewCol.setCellValueFactory(new PropertyValueFactory<Movie, String>("LastView"));
 
         moviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         moviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
+        moviesLastViewCol.setCellValueFactory(new PropertyValueFactory<Movie, String>("LastView"));
 
 
         //Sets items in the tableView and the listView
@@ -207,13 +214,18 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
+    public void handleButtonPlay(ActionEvent actionEvent) throws IOException, SQLServerException {
         if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
+            movieModel.updateMovieTime(movie);
             Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+            allMoviesTable.getItems().clear();
+            allMoviesTable.setItems(movieModel.getObservableMovies());
         } else if (moviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie2 = moviesTable.getSelectionModel().getSelectedItem();
+            movieModel.updateMovieTime(movie2);
             Desktop.getDesktop().open(new File(moviePath + movie2.getFileLink()));
+            moviesTable.refresh();
         } else
             error("Please select a movie");
 
