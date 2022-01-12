@@ -71,6 +71,10 @@ public class MainViewController implements Initializable {
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         allMoviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
 
+        moviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
+        moviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
+
+
         //Sets items in the tableView and the listView
         try {
             allMoviesTable.setItems(movieModel.getObservableMovies());

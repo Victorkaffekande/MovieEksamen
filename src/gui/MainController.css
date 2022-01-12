@@ -22,6 +22,7 @@
 }
 .table-cell{
     -fx-background-color: "Lightblue";
+    -fx-text-fill: "Black";
 }
 .button{
     -fx-background-color: #8fa0a6;
