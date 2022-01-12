@@ -12,6 +12,9 @@
 .list-cell{
     -fx-background-color: "Lightblue";
 }
+.list-cell:selected{
+    -fx-border-color: "Black";
+}
 .table-view{
     -fx-background-color: "Lightblue";
     -fx-text-fill: "Black";
@@ -23,6 +26,11 @@
 .table-cell{
     -fx-background-color: "Lightblue";
     -fx-text-fill: "Black";
+
+}
+.table-row-cell:selected{
+    -fx-border-color: "Black";
+
 }
 .button{
     -fx-background-color: #8fa0a6;
