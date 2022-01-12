@@ -7,8 +7,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -45,10 +47,6 @@ public class EditMovieController {
     txtMovieFilepathEdit.setText(movie.getFileLink());
     }
 
-    public void handleChooseEdit(ActionEvent actionEvent) {
-
-    }
-
 
     public void handleNewMovieCancelEdit(ActionEvent actionEvent) {
         Stage stage = (Stage) newMovieCancelEdit.getScene().getWindow();
@@ -69,5 +67,17 @@ public class EditMovieController {
             alert.setTitle("Warning");
             alert.setHeaderText("fill out all textfields");
             alert.showAndWait();        }
+    }
+
+    public void handleChooseFilepath(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movies", "*.mp4", "*.mpeg4"));
+        fileChooser.setInitialDirectory(new File("Movies/" ));
+        File file = fileChooser.showOpenDialog(null);
+
+
+        if (file != null) {
+            txtMovieFilepathEdit.setText( file.getName());
+        }
     }
 }

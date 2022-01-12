@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="328.0" prefWidth="273.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditMovieController">
+<AnchorPane prefHeight="243.0" prefWidth="273.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditMovieController">
    <children>
       <TextField fx:id="txtMovieTitleEdit" layoutX="33.0" layoutY="42.0" />
       <TextField fx:id="txtMovieRatingEdit" layoutX="33.0" layoutY="101.0" />
@@ -26,14 +26,9 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="203.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleChooseEdit" text="Choose" />
-      <Button fx:id="newMovieCancelEdit" layoutX="33.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleNewMovieCancelEdit" text="Cancel" />
-      <Button fx:id="newMovieAcceptEdit" layoutX="101.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleNewMovieAcceptEdit" text="Accept" />
-      <Label layoutX="33.0" layoutY="198.0" text="Last Viewed">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <Button layoutX="201.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleChooseFilepath" text="Choose" />
+      <Button fx:id="newMovieCancelEdit" layoutX="33.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleNewMovieCancelEdit" text="Cancel" />
+      <Button fx:id="newMovieAcceptEdit" layoutX="92.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleNewMovieAcceptEdit" text="Accept" />
       <TextField fx:id="txtMovieId" layoutX="189.0" layoutY="138.0" opacity="0.0" prefHeight="25.0" prefWidth="80.0" />
    </children>
 </AnchorPane>
