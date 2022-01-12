@@ -28,6 +28,12 @@ import java.util.ResourceBundle;
 public class MainViewController implements Initializable {
 
     @FXML
+    private RadioButton radioButtonTitle;
+    @FXML
+    private RadioButton radioButtonCategory;
+    @FXML
+    private RadioButton radioButtonRating;
+    @FXML
     private TableView<Movie> allMoviesTable;
     @FXML
     private TableColumn<Movie, String> allMoviesNameColumn;
@@ -49,6 +55,7 @@ public class MainViewController implements Initializable {
     private CategoryModel categoryModel;
 
     private String moviePath = "Movies/";
+    private String filterType;
 
     public MainViewController() throws IOException {
         movieModel = new MovieModel();
@@ -85,9 +92,11 @@ public class MainViewController implements Initializable {
         }
 
         //movie search
+        radioButtonTitle.setSelected(true);
+        filterType = "movieFilter";
         filterInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
             try {
-                movieModel.searchMovie(newValue);
+                movieModel.searchMovie(newValue,filterType);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -140,8 +149,8 @@ public class MainViewController implements Initializable {
         stage.setTitle("CreateMovie");
         stage.setScene(new Scene(root));
         stage.showAndWait();
-        moviesTable.getItems().clear();
-        moviesTable.setItems(movieModel.getObservableMovies());
+        allMoviesTable.getItems().clear();
+        allMoviesTable.setItems(movieModel.getObservableMovies());
     }
 
     public void handleEditMovieButton(ActionEvent actionEvent) throws IOException {
@@ -189,6 +198,13 @@ public class MainViewController implements Initializable {
     }
 
     public void handleRadioButton(ActionEvent actionEvent) {
+        if (radioButtonTitle.isSelected()){
+            filterType = "movieFilter";
+        } else if(radioButtonRating.isSelected()){
+            filterType = "ratingFilter";
+        }else if (radioButtonCategory.isSelected()){
+
+        }
     }
 
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException {
@@ -237,5 +253,8 @@ public class MainViewController implements Initializable {
             musicPlaystage.setTitle("MoviePlay");
             musicPlaystage.show();
         }
+    }
+
+    public void allMoviesTableClicked(MouseEvent mouseEvent) {
     }
 }
