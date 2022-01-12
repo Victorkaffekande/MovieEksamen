@@ -222,5 +222,12 @@ public class MainViewController implements Initializable {
     public void handleMovieTableClicked(MouseEvent mouseEvent) {
         allMoviesTable.getSelectionModel().clearSelection();
     }
-    
+
+    public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/MoviePlay.fxml"));
+        Stage stage = new Stage();
+        stage.setTitle("MoviePlay");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 }
