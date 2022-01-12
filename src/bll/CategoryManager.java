@@ -35,4 +35,7 @@ public class CategoryManager  {
     public void addMovieToCategory(Category category, Movie movie){
         categoryDAO.addMovieToCategory(category, movie);
     }
+    public List<Movie> getALlMoviesFromCategories(Category category){
+      return categoryDAO.getAllMoviesFromCategory(category);
+    }
 }

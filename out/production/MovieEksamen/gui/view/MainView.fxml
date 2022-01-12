@@ -27,7 +27,7 @@
                 <TableColumn fx:id="allMoviesRatingColumn" prefWidth="86.40001220703124" text="Rating" />
             </columns>
         </TableView>
-        <ListView fx:id="categoryListView" layoutX="14.0" layoutY="118.0" prefHeight="286.0" prefWidth="170.0" />
+        <ListView fx:id="categoryListView" layoutX="14.0" layoutY="118.0" onMouseClicked="#lookAtCategoryMovies" prefHeight="286.0" prefWidth="170.0" />
         <Label layoutX="55.0" layoutY="56.0" />
         <TableView fx:id="moviesTable" layoutX="197.0" layoutY="118.0" prefHeight="285.0" prefWidth="243.0">
             <columns>
