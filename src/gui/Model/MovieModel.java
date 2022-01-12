@@ -38,9 +38,9 @@ public class MovieModel {
         return movieList;
     }
 
-    public void searchMovie(String query) throws IOException, SQLException {
+    public void searchMovie(String query,String type) throws IOException, SQLException {
         List<Movie> allMovies = getAllMovies();
-        List<Movie> result = movieManager.getSearchedMovies(allMovies,query);
+        List<Movie> result = movieManager.getSearchedMovies(allMovies,query,type);
         movieList.clear();
         movieList.addAll(result);
     }

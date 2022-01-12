@@ -41,8 +41,8 @@ public class MovieManager {
       return movieDAO.getCategoryMovie(categoryId);
     }
 
-    public List<Movie> getSearchedMovies(List<Movie> movieList, String query) throws SQLException {
-        return filter.search(movieList, query);
+    public List<Movie> getSearchedMovies(List<Movie> movieList, String query, String filterType) throws SQLException {
+        return filter.search(movieList, query, filterType);
     }
 
 }
