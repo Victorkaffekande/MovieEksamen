@@ -50,9 +50,7 @@ public class CategoryModel {
         List<Movie> tempMovieList;
         ObservableList<Movie> movies = FXCollections.observableArrayList();
         tempMovieList = this.categoryManager.getALlMoviesFromCategories(category);
-        for(Movie movieList: tempMovieList){
-            movies.add(movieList);
-        }
+        movies.addAll(tempMovieList);
     return movies;
     }
     public void deleteMovieFromCategory(Category category, Movie movie){

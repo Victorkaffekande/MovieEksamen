@@ -188,7 +188,6 @@ public class MainViewController implements Initializable {
         } else {
             movieModel.deleteMovie(allMoviesTable.getSelectionModel().getSelectedItem());
             allMoviesTable.getItems().remove(allMoviesTable.getSelectionModel().getSelectedItem());
-
         }
     }
 
@@ -202,6 +201,9 @@ public class MainViewController implements Initializable {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
         categoryModel.addMovieToCategory(selectedCategory, selectedMovie);
+
+        moviesTable.getItems().clear();
+        moviesTable.setItems(categoryModel.getAllMoviesFromCategoriesObservable(selectedCategory));
     }
 
     public void handleRadioButton(ActionEvent actionEvent) {
@@ -210,7 +212,7 @@ public class MainViewController implements Initializable {
         } else if(radioButtonRating.isSelected()){
             filterType = "ratingFilter";
         }else if (radioButtonCategory.isSelected()){
-
+            filterType = "categoryFilter";
         }
     }
 
@@ -241,6 +243,9 @@ public class MainViewController implements Initializable {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
         categoryModel.deleteMovieFromCategory(selectedCategory, selectedMovie);
+
+        moviesTable.getItems().clear();
+        moviesTable.setItems(categoryModel.getAllMoviesFromCategoriesObservable(selectedCategory));
     }
 
     public void handleMovieTableClicked(MouseEvent mouseEvent) {
