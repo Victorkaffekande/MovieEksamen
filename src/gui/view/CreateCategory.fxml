@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="164.0" prefWidth="248.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CreateCategoryController">
+<AnchorPane prefHeight="165.0" prefWidth="250.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.CreateCategoryController">
    <children>
-      <ImageView fitHeight="207.0" fitWidth="248.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="165.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="https://image.freepik.com/free-photo/navy-blue-smoky-art-abstract-background_53876-102669.jpg" />
          </image>
