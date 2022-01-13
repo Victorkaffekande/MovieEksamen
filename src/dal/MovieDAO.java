@@ -16,6 +16,15 @@ public class MovieDAO {
         this.databaseConnector = new DatabaseConnector();
     }
 
+    /**
+     * i getAllMovies metoden får vi data fra databasen, som bruges til
+     * at lave et movie objekt, som derefter bliver sat ind i en Arrayliste
+     * i metoden, arraylisten er allMovies.
+     * @return allMovies som indeholder alle film objekter fra databasen
+     * @throws IOException
+     */
+
+
     public List<Movie> getAllMovies() throws IOException {
         ArrayList<Movie> allMovies = new ArrayList<>();
 
@@ -30,8 +39,8 @@ public class MovieDAO {
                     float rating = resultSet.getFloat("rating");
                     String fileLink = resultSet.getString("fileLink");
                     java.sql.Timestamp lastView = resultSet.getTimestamp("lastView");
-                    Movie movie = new Movie(id, name, rating, fileLink, lastView);
-                    allMovies.add(movie);
+                    Movie movie = new Movie(id, name, rating, fileLink, lastView); // Laver et movie objekt
+                    allMovies.add(movie); // indsætter movie objekt i Arraylisten
                 }
             }
         } catch (SQLException throwable) {
@@ -42,9 +51,16 @@ public class MovieDAO {
 
     /**
      *
-     *          createMovie metoden opretter et film objekt i vores
-     *          Movie Table
-     * @return
+     * @param name navnet / titlen af filmen (String)
+     * @param rating Bedømmelsen, som brugeren giver filmen (float)
+     * @param filelink filelinket (String)
+     *
+     *        createMovie metoden laver et film objekt i vores database.
+     *        id bliver incremented af vores database og sendt tilbage til
+     *        applikationen. Id'et bliver forøget med 1 hver gang et nyt objekt
+     *        bliver tilføjet.
+     *
+     * @return Det nye film objekt
      * @throws SQLException
      */
 
@@ -90,7 +106,16 @@ public class MovieDAO {
     }
 
 
-
+    /**
+     *
+     * @param categoryId category Id
+     *
+     *                   innerjoiner Movie og Category columns i databasen ved at
+     *                   innerjoine dem i en tredje column, som er CatMovie.
+     *
+     * @return returnerer allMovies Arraylisten
+     * @throws SQLException
+     */
     public List<Movie> getCategoryMovie(int categoryId) throws SQLException {
         ArrayList<Movie> allMovies = new ArrayList<>();
         try (Connection connection = databaseConnector.getConnection()) {
@@ -125,6 +150,7 @@ public class MovieDAO {
      *
      * @param movieUpdate Metoden her bruges, når man vil redigere
      *                    et film objekt ved brug af SQL UPDATE statement.
+     *                    Overskriver det allerede eksisterende film objekt.
      * @throws SQLException
      */
     public void updateMovie(Movie movieUpdate) throws SQLException{
@@ -144,6 +170,14 @@ public class MovieDAO {
         }
     }
 
+    /**
+     *
+     * @param movie film objektet
+     *        updateMovieTime opdaterer, hvornår et film objekt sidst
+     *        er blevet set under lastview.
+     * @throws SQLServerException
+     */
+
     public void updateMovieTime(Movie movie) throws SQLServerException {
         java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
         try(Connection connection = databaseConnector.getConnection()){
@@ -158,8 +192,4 @@ public class MovieDAO {
             throwables.printStackTrace();
         }
     }
-    public static void main(String[] args) throws IOException, SQLException {
-        MovieDAO movieDAO = new MovieDAO();
-    }
-
 }
