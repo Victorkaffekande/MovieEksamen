@@ -1,22 +1,23 @@
 package bll.util;
 
+import be.Category;
 import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import dal.CategoryDAO;
 import dal.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.ToDoubleBiFunction;
 
 public class Filter {
     private DatabaseConnector databaseConnector;
+    private CategoryDAO categoryDAO;
 
     public Filter() throws IOException {
         databaseConnector = new DatabaseConnector();
+        categoryDAO = new CategoryDAO();
     }
 
     /**
@@ -26,32 +27,37 @@ public class Filter {
      * @param query
      * @return a list of songs containing the String
      */
-    public List<Movie> search(List<Movie> movieList, String query, String filterType) throws SQLException {
+    public List<Movie> search(List<Movie> movieList, String query, String filterType) throws SQLException, IOException {
         List<Movie> result = new ArrayList<>();
         for (Movie movie : movieList) {
-            if (Objects.equals(filterType,"movieFilter")){
+            if (Objects.equals(filterType, "movieFilter")) {
                 if (compareToTitle(movie, query)) {
                     result.add(movie);
                 }
             }
-            if (Objects.equals(filterType,"ratingFilter")){
-                if (Objects.equals(query, "")){
+            if (Objects.equals(filterType, "ratingFilter")) {
+                if (Objects.equals(query, "")) {
                     query = "0";
                 }
-                if(compareRating(movie,query)){
+                if (compareRating(movie, query)) {
                     result.add(movie);
                 }
             }
         }
-
+        if (Objects.equals(filterType, "categoryFilter")) {
+            if (Objects.equals(query, "")){
+                result.addAll(movieList);
+            }
+            result.addAll(containedInCategory(query));
+        }
         return result;
     }
 
-    
+
     private boolean compareToTitle(Movie movie, String query) {
         return movie.getName().toLowerCase().contains(query.toLowerCase());
     }
-    
+
     private boolean compareRating(Movie movie, String query) {
         //finds all the numbers in the input string
         char[] chars = query.toLowerCase(Locale.ROOT).toCharArray();
@@ -62,7 +68,7 @@ public class Filter {
             }
         }
         //compares movie rating to the input
-        if (!stringBuilder.isEmpty()){
+        if (!stringBuilder.isEmpty()) {
             double rating = Double.parseDouble(stringBuilder.toString());
             return movie.getRating() >= rating;
         }
@@ -70,55 +76,69 @@ public class Filter {
     }
 
     ///TODO fix category search
-    private boolean containedInCategory(String query) throws SQLException {
+    private List<Movie> containedInCategory(String query) throws SQLException, IOException {
+        List<Movie> moviesInCategory = new ArrayList<>();
         int[] categoryIds = getCategoryIds(query);
-        if (categoryIds != null) {
-            try (Connection connection = databaseConnector.getConnection()) {
-                StringBuilder stringBuilder = new StringBuilder("SELECT * FROM CatMovie WHERE CategoryId =");
-                for (int i = 0; i < categoryIds.length; i++) {
-                    stringBuilder.append(categoryIds[i]);
-                    if (i != categoryIds.length - 1) {
-                        stringBuilder.append("OR");
+        if (categoryIds[0] != 0) {
+            for (int i : categoryIds) {
+                try (Connection connection = databaseConnector.getConnection()) {
+                    String sql = "SELECT * FROM CatMovie WHERE CategoryId =? ";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+                    ps.setInt(1, i);
+                    ResultSet rs = ps.executeQuery();
+                    while (rs.next()) {
+                        String sql2 = "SELECT top(1) * from movie where Id = ?";
+                        PreparedStatement ps2 = connection.prepareStatement(sql2);
+                        ps2.setInt(1, rs.getInt("MovieId"));
+                        ResultSet rs2 = ps2.executeQuery();
+                        while (rs2.next()) {
+                            int id = rs2.getInt("ID");
+                            String name = rs2.getString("Name");
+                            float rating = rs2.getFloat("Rating");
+                            String filelink = rs2.getString("filelink");
+                            java.sql.Timestamp timestamp = rs2.getTimestamp("lastview");
+                            float personalRating = rs2.getFloat("personalRating");
+
+                            Movie movie = new Movie(id, name, rating, filelink, timestamp,personalRating);
+                                moviesInCategory.add(movie);
+                        }
                     }
                 }
-
-
-                String sql = stringBuilder.toString();
-                Statement ps = connection.createStatement();
-                ResultSet rs = ps.executeQuery(sql);
-                while (rs.next()) {
-
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
             }
-        }
 
-        return false;
+        }
+        return moviesInCategory;
     }
 
+    private int[] getCategoryIds(String category) throws SQLException, IOException {
+        String[] catArray = category.toLowerCase(Locale.ROOT).trim().split(" ");
 
-    private int[] getCategoryIds(String category) throws SQLException {
-        // if query == category -> find category id
-        try (Connection connection = databaseConnector.getConnection()) {
-            String sql = "SELECT * FROM Category WHERE Name = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, category);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs != null) {
-                rs.last();
-                int[] categoryIds = new int[rs.getRow() - 1]; //?? why -1
-                rs.first();
-                for (int i = 0; i < categoryIds.length; i++) {
-                    categoryIds[i] = rs.getInt("Id");
-                    rs.next();
-                }
-                return categoryIds;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        List<Category> allCats = categoryDAO.getAllCategories();
+        List<String> allCatNames = new ArrayList<>();
+        for (Category c : allCats) {
+            allCatNames.add(c.getName().toLowerCase());
         }
-        return null;
+        int[] categoryIds = new int[catArray.length];
+        for (int i = 0; i < catArray.length; i++) {
+            if (allCatNames.contains(catArray[i])) {
+                try (Connection connection = databaseConnector.getConnection()) {
+                    String sql = "SELECT * FROM Category WHERE Name = ?";
+                    PreparedStatement ps = connection.prepareStatement(sql);
+
+                    ps.setString(1, catArray[i]);
+                    ResultSet rs = ps.executeQuery();
+                    rs.next();
+                    categoryIds[i] = rs.getInt("Id");
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }
+        return categoryIds;
+    }
+
+    public static void main(String[] args) {
+        System.out.println("'test'");
     }
 }

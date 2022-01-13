@@ -42,7 +42,7 @@ public class MovieManager {
       return movieDAO.getCategoryMovie(categoryId);
     }
 
-    public List<Movie> getSearchedMovies(List<Movie> movieList, String query, String filterType) throws SQLException {
+    public List<Movie> getSearchedMovies(List<Movie> movieList, String query, String filterType) throws SQLException, IOException {
         return filter.search(movieList, query, filterType);
     }
     public void updateMovieTime(Movie movie) throws SQLServerException {
