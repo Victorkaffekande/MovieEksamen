@@ -120,8 +120,9 @@ public class CategoryDAO {
                 float rating = rSet.getFloat("Rating");
                 String filelink = rSet.getString("filelink");
                 java.sql.Timestamp timestamp = rSet.getTimestamp("lastview");
+                float personalRating = rSet.getFloat("personalRating");
 
-                Movie movie = new Movie(id, name, rating, filelink, timestamp);
+                Movie movie = new Movie(id, name, rating, filelink, timestamp, personalRating);
 
                 moviesInCategory.add(movie);
             }

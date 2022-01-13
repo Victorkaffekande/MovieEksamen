@@ -28,9 +28,10 @@ public class MovieDAO {
                     int id = resultSet.getInt("id");
                     String name = resultSet.getString("name");
                     float rating = resultSet.getFloat("rating");
+                    float personalRating = resultSet.getFloat("personalRating");
                     String fileLink = resultSet.getString("fileLink");
                     java.sql.Timestamp lastView = resultSet.getTimestamp("lastView");
-                    Movie movie = new Movie(id, name, rating, fileLink, lastView);
+                    Movie movie = new Movie(id, name, rating, fileLink, lastView, personalRating);
                     allMovies.add(movie);
                 }
             }
@@ -48,16 +49,17 @@ public class MovieDAO {
      * @throws SQLException
      */
 
-    public Movie createMovie(String name, float rating, String filelink) throws SQLException {
+    public Movie createMovie(String name, float rating, String filelink, float personalRating) throws SQLException {
         int Id = -1;
         java.sql.Timestamp lastview = new java.sql.Timestamp(System.currentTimeMillis());
-        String sql = "INSERT INTO Movie (Name, Rating, filelink, lastview) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO Movie (Name, Rating, filelink, lastview, personalRating) VALUES (?,?,?,?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, name);
             ps.setFloat(2, rating);
             ps.setString(3, filelink);
             ps.setTimestamp(4, lastview);
+            ps.setFloat(5, personalRating);
             ps.addBatch();
             ps.executeBatch();
 
@@ -70,7 +72,7 @@ public class MovieDAO {
 
             ps.executeBatch();
         }
-        return new Movie(Id, name, rating, filelink, lastview);
+        return new Movie(Id, name, rating, filelink, lastview, personalRating);
     }
 
     /**
@@ -108,8 +110,9 @@ public class MovieDAO {
                     float rating = resultSet.getFloat("rating");
                     String filelink = resultSet.getString("filelink");
                     Timestamp lastview = resultSet.getTimestamp("lastview");
+                    float personalRating = resultSet.getFloat("personalRating");
                     int id = resultSet.getInt("id");
-                    Movie movie = new Movie(id, name, rating, filelink, lastview);
+                    Movie movie = new Movie(id, name, rating, filelink, lastview, personalRating);
                     allMovies.add(movie);
                 }
             }
@@ -129,13 +132,14 @@ public class MovieDAO {
      */
     public void updateMovie(Movie movieUpdate) throws SQLException{
         try (Connection connection = databaseConnector.getConnection()) {
-            String sql = "UPDATE Movie SET Name=?, Rating=?, filelink=?, lastview=? WHERE Id=?;";
+            String sql = "UPDATE Movie SET Name=?, Rating=?, filelink=?, lastview=?, personalRating=? WHERE Id=?;";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, movieUpdate.getName());
             ps.setFloat(2, movieUpdate.getRating());
             ps.setString(3, movieUpdate.getFileLink());
             ps.setTimestamp(4, movieUpdate.getLastView());
-            ps.setInt(5, movieUpdate.getId());
+            ps.setFloat(5, movieUpdate.getPersonalRating());
+            ps.setInt(6, movieUpdate.getId());
             if (ps.executeUpdate() != 1) {
                 throw new Exception("Could not update Movie");
             }

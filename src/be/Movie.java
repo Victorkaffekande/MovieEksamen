@@ -7,13 +7,15 @@ public class Movie {
     private int id;
     private String name;
     private float rating;
+    private float personalRating;
     private String fileLink;
     private java.sql.Timestamp lastView;
 
-    public Movie(int id, String name, float rating, String fileLink, java.sql.Timestamp lastView) {
+    public Movie(int id, String name, float rating, String fileLink, java.sql.Timestamp lastView, float personalRating) {
         this.id = id;
         this.name = name;
         this.rating = rating;
+        this.personalRating = personalRating;
         this.fileLink = fileLink;
         this.lastView = lastView;
     }
@@ -38,8 +40,16 @@ public class Movie {
         return rating;
     }
 
+    public float getPersonalRating() {
+        return personalRating;
+    }
+
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public void setPersonalRating(float personalRating) {
+        this.personalRating = personalRating;
     }
 
     public String getFileLink() {

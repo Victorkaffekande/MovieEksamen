@@ -18,6 +18,8 @@ import java.sql.Timestamp;
 public class EditMovieController {
 
     @FXML
+    private TextField txtMoviePersonalRatingEdit;
+    @FXML
     private TextField txtMovieId;
     @FXML
     private TextField txtMovieTitleEdit;
@@ -45,6 +47,7 @@ public class EditMovieController {
     txtMovieTitleEdit.setText(movie.getName());
     txtMovieRatingEdit.setText(Float.toString(movie.getRating()));
     txtMovieFilepathEdit.setText(movie.getFileLink());
+    txtMoviePersonalRatingEdit.setText(Float.toString(movie.getPersonalRating()));
     }
 
 
@@ -56,7 +59,7 @@ public class EditMovieController {
     public void handleNewMovieAcceptEdit(ActionEvent actionEvent) throws SQLException {
         if (!txtMovieTitleEdit.getText().isEmpty() && !txtMovieRatingEdit.getText().isEmpty() && !txtMovieFilepathEdit.getText().isEmpty()) {
 
-            Movie updateMovie = new Movie(id, txtMovieTitleEdit.getText(),Float.parseFloat(txtMovieRatingEdit.getText()), txtMovieFilepathEdit.getText(), lastView);
+            Movie updateMovie = new Movie(id, txtMovieTitleEdit.getText(),Float.parseFloat(txtMovieRatingEdit.getText()), txtMovieFilepathEdit.getText(), lastView, Float.parseFloat(txtMoviePersonalRatingEdit.getText()));
 
             moviemodel.updateMovie(updateMovie);
 

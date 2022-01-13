@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="243.0" prefWidth="273.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditMovieController">
+<AnchorPane prefHeight="325.0" prefWidth="280.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.EditMovieController">
    <children>
-      <ImageView fitHeight="243.0" fitWidth="273.0" layoutX="1.0" pickOnBounds="true">
+      <ImageView fitHeight="325.0" fitWidth="280.0" layoutX="1.0" layoutY="1.0" pickOnBounds="true">
          <image>
             <Image url="https://image.freepik.com/free-photo/navy-blue-smoky-art-abstract-background_53876-102669.jpg" />
          </image>
       </ImageView>
       <TextField fx:id="txtMovieTitleEdit" layoutX="33.0" layoutY="42.0" />
       <TextField fx:id="txtMovieRatingEdit" layoutX="33.0" layoutY="101.0" />
-      <TextField fx:id="txtMovieFilepathEdit" editable="false" layoutX="33.0" layoutY="164.0" />
+      <TextField fx:id="txtMovieFilepathEdit" editable="false" layoutX="33.0" layoutY="233.0" />
       <Label layoutX="33.0" layoutY="14.0" text="Title">
          <font>
             <Font size="18.0" />
@@ -28,14 +28,20 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="137.0" text="File path">
+      <Label layoutX="33.0" layoutY="206.0" text="File path">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="201.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleChooseFilepath" text="Choose" />
-      <Button fx:id="newMovieCancelEdit" layoutX="33.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleNewMovieCancelEdit" text="Cancel" />
-      <Button fx:id="newMovieAcceptEdit" layoutX="92.0" layoutY="201.0" mnemonicParsing="false" onAction="#handleNewMovieAcceptEdit" text="Accept" />
+      <Button layoutX="201.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleChooseFilepath" text="Choose" />
+      <Button fx:id="newMovieCancelEdit" layoutX="33.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleNewMovieCancelEdit" text="Cancel" />
+      <Button fx:id="newMovieAcceptEdit" layoutX="92.0" layoutY="270.0" mnemonicParsing="false" onAction="#handleNewMovieAcceptEdit" text="Accept" />
       <TextField fx:id="txtMovieId" layoutX="189.0" layoutY="138.0" opacity="0.0" prefHeight="25.0" prefWidth="80.0" />
+      <TextField fx:id="txtMoviePersonalRatingEdit" layoutX="33.0" layoutY="166.0" />
+      <Label layoutX="33.0" layoutY="138.0" text="Personal rating">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

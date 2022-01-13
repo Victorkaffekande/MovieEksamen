@@ -14,6 +14,8 @@ import java.sql.SQLException;
 
 public class CreateMovieController {
     @FXML
+    private TextField moviePersonalRatingTxt;
+    @FXML
     private Button cancelBtn;
     @FXML
     private TextField movieTitleTxt;
@@ -30,7 +32,7 @@ public class CreateMovieController {
     }
 
     public void saveMovieBtn(ActionEvent actionEvent) throws SQLException {
-        movieModel.createMovie(movieTitleTxt.getText(), Float.parseFloat(movieRatingTxt.getText()),  movieFilePathTxt.getText());
+        movieModel.createMovie(movieTitleTxt.getText(), Float.parseFloat(movieRatingTxt.getText()),  movieFilePathTxt.getText(), Float.parseFloat(moviePersonalRatingTxt.getText()));
         Stage stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();
     }

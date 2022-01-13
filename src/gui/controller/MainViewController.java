@@ -27,6 +27,11 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
+
+    @FXML
+    private TableColumn<Movie, Float> allMoviesPersonalRatingColumn;
+    @FXML
+    private TableColumn<Movie, Float> moviesPersonalRatingColumn;
     @FXML
     private TableColumn<Movie, String> moviesLastViewCol;
     @FXML
@@ -69,10 +74,12 @@ public class MainViewController implements Initializable {
         moviesTable = new TableView();
         moviesNameColumn = new TableColumn();
         moviesRatingColumn = new TableColumn();
+        moviesPersonalRatingColumn = new TableColumn();
 
         allMoviesTable = new TableView();
         allMoviesNameColumn = new TableColumn();
         allMoviesRatingColumn = new TableColumn();
+        allMoviesPersonalRatingColumn = new TableColumn();
         allMoviesLastViewCol = new TableColumn();
 
         categoryListView = new ListView();
@@ -83,10 +90,12 @@ public class MainViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         allMoviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
+        allMoviesPersonalRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         allMoviesLastViewCol.setCellValueFactory(new PropertyValueFactory<Movie, String>("LastView"));
 
         moviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
         moviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
+        moviesPersonalRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         moviesLastViewCol.setCellValueFactory(new PropertyValueFactory<Movie, String>("LastView"));
 
 
