@@ -114,6 +114,7 @@ public class MainViewController implements Initializable {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/CreateCategory.fxml"))); // The FXML path
         Scene scene = new Scene(parent); // Scene supposed to be viewed
         Stage createCategoryStage = new Stage();
+        createCategoryStage.setResizable(false);
         createCategoryStage.setScene(scene); // Sets the new scene
         createCategoryStage.showAndWait(); // This shows the new scene
         categoryListView.getItems().clear();
@@ -133,6 +134,7 @@ public class MainViewController implements Initializable {
             }
             Stage editCategoryStage = new Stage();
             editCategoryStage.setScene(mainWindowScene);
+            editCategoryStage.setResizable(false);
             EditCategoryController editCategoryController = root.getController();
             editCategoryController.setCategory(selectedCategory);
             editCategoryStage.showAndWait();
@@ -155,6 +157,7 @@ public class MainViewController implements Initializable {
         Stage stage = new Stage();
         stage.setTitle("CreateMovie");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.showAndWait();
         allMoviesTable.getItems().clear();
         allMoviesTable.setItems(movieModel.getObservableMovies());
@@ -175,6 +178,7 @@ public class MainViewController implements Initializable {
             editMovieStage.setScene(mainWindowScene);
             EditMovieController editMovieController = root.getController();
             editMovieController.setMovie(selectedMovie);
+            editMovieStage.setResizable(false);
             editMovieStage.showAndWait();
             allMoviesTable.getItems().clear();
             allMoviesTable.setItems(movieModel.getObservableMovies());

@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="461.0" prefWidth="959.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="460.0" prefWidth="960.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
     <children>
-      <ImageView fitHeight="461.0" fitWidth="959.0" pickOnBounds="true">
+      <ImageView fitHeight="460.0" fitWidth="960.0" pickOnBounds="true">
          <image>
             <Image url="https://image.freepik.com/free-photo/navy-blue-smoky-art-abstract-background_53876-102669.jpg" />
          </image>
