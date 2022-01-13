@@ -55,7 +55,7 @@
             </font>
         </Label>
         <TextField fx:id="filterInput" layoutX="929.0" layoutY="31.0" />
-        <Button layoutX="298.0" layoutY="34.0" mnemonicParsing="false" onAction="#handleButtonPlay" opacity="0.0" prefHeight="44.0" prefWidth="42.0" text="Play">
+        <Button layoutX="434.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleButtonPlay" opacity="0.0" prefHeight="75.0" prefWidth="85.0" text="Play">
             <font>
                 <Font size="18.0" />
             </font>
@@ -66,7 +66,7 @@
         <Button layoutX="789.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleCreateMovieButton" text="Create" />
         <Button layoutX="877.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleEditMovieButton" text="Edit" />
         <Button layoutX="947.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleDeleteMovieButton" text="Delete" />
-      <ImageView disable="true" fitHeight="75.0" fitWidth="86.0" layoutX="434.0" layoutY="38.0" pickOnBounds="true">
+      <ImageView disable="true" fitHeight="75.0" fitWidth="85.0" layoutX="434.0" layoutY="38.0" pickOnBounds="true">
          <image>
             <Image url="https://i.ibb.co/jZQ8kK5/play-Pause-Button2.png" />
          </image>
