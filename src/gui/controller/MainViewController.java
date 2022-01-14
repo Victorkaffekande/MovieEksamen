@@ -2,7 +2,9 @@ package gui.controller;
 
 import be.Category;
 import be.Movie;
+import bll.MovieManager;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
+import dal.MovieDAO;
 import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
 import javafx.collections.ObservableList;
@@ -23,8 +25,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.List;
 
 public class MainViewController implements Initializable {
 
@@ -86,6 +91,7 @@ public class MainViewController implements Initializable {
     }
 
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         allMoviesNameColumn.setCellValueFactory(new PropertyValueFactory<Movie, String>("Name"));
@@ -97,7 +103,6 @@ public class MainViewController implements Initializable {
         moviesRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("Rating"));
         moviesPersonalRatingColumn.setCellValueFactory(new PropertyValueFactory<Movie, Float>("personalRating"));
         moviesLastViewCol.setCellValueFactory(new PropertyValueFactory<Movie, String>("LastView"));
-
 
         //Sets items in the tableView and the listView
         try {
@@ -202,6 +207,7 @@ public class MainViewController implements Initializable {
             movieModel.deleteMovie(allMoviesTable.getSelectionModel().getSelectedItem());
             allMoviesTable.getItems().remove(allMoviesTable.getSelectionModel().getSelectedItem());
         }
+
     }
 
 
@@ -266,7 +272,7 @@ public class MainViewController implements Initializable {
     }
 
     public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
-        Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
+       /** Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {
             FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/MoviePlay.fxml"));
             Scene mainWindowScene = null;
@@ -282,7 +288,8 @@ public class MainViewController implements Initializable {
             moviePlayController.setMovieUrl();
             musicPlaystage.setTitle("MoviePlay");
             musicPlaystage.show();
-        }
+        }*/
+
     }
 
     public void allMoviesTableClicked(MouseEvent mouseEvent) {
