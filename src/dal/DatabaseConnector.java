@@ -14,6 +14,12 @@ public class DatabaseConnector {
     private static final String PROP_FILE = "src/database.settings";
     private SQLServerDataSource ds;
 
+    /**
+     * Logger ind på vores databse ved brug af informationerne omkring
+     * vores login i et .settings fil
+     * @throws IOException
+     */
+
     public DatabaseConnector() throws IOException
     {
         Properties databaseProperties = new Properties();
@@ -25,10 +31,24 @@ public class DatabaseConnector {
         ds.setPassword(databaseProperties.getProperty("Password"));
     }
 
+
+    /**
+     * Danner en forbindelse med vores database
+     * @return forbindelsen
+     * @throws SQLServerException
+     */
+
     public Connection getConnection() throws SQLServerException
     {
         return ds.getConnection();
     }
+
+    /**
+     * Tester til at se om den åbner
+     * @param args
+     * @throws IOException
+     * @throws SQLException
+     */
 
     public static void main(String[] args) throws IOException, SQLException {
         DatabaseConnector databaseConnector = new DatabaseConnector();
