@@ -13,6 +13,10 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Klassen Moviemanager indeholder alle metoderne, som anvendes i MovieModel
+ */
+
 public class MovieManager {
 
     private MovieDAO movieDAO;
@@ -21,7 +25,6 @@ public class MovieManager {
         movieDAO = new MovieDAO();
         filter = new Filter();
     }
-
     public List<Movie> getAllObjects() throws IOException {
         return movieDAO.getAllMovies();
     }

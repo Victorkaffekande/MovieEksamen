@@ -11,6 +11,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Vi sætter vores observable list movieList til vores getAllObjects list
+ */
+
 public class MovieModel {
     private MovieManager movieManager;
     private ObservableList<Movie> movieList;

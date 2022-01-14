@@ -15,6 +15,11 @@ public class CategoryModel {
     private CategoryManager categoryManager;
     private ObservableList <Category> categoryList;
 
+    /**
+     * Vi sætter vores observable list movieList til vores getAllObjects list
+     * @throws IOException
+     */
+
     public CategoryModel() throws IOException {
         categoryManager = new CategoryManager();
         categoryList = FXCollections.observableArrayList();

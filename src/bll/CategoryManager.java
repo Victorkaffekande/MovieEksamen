@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Denne klasse indeholder metoderne, som anvendes i CategoryModel
+ */
+
 public class CategoryManager  {
     private CategoryDAO categoryDAO;
 
