@@ -99,7 +99,7 @@ public class MainViewController implements Initializable {
         moviesLastViewCol.setCellValueFactory(new PropertyValueFactory<Movie, String>("LastView"));
 
 
-        //Sets items in the tableView and the listView
+
         try {
             allMoviesTable.setItems(movieModel.getObservableMovies());
             categoryListView.setItems(categoryModel.getObservableCategories());
@@ -107,7 +107,6 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
 
-        //movie search
         radioButtonTitle.setSelected(true);
         filterType = "movieFilter";
         filterInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -119,9 +118,15 @@ public class MainViewController implements Initializable {
         });
     }
 
+    /**
+     * Metoden handleCreateCategory styrer knappen "Create" under Category, som åbner createCategory.fxml
+     * @param actionEvent javaFX event klasse
+     * @throws IOException
+     */
+
     public void handleCreateCategory(ActionEvent actionEvent) throws IOException {
         Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/CreateCategory.fxml"))); // The FXML path
-        Scene scene = new Scene(parent); // Scene supposed to be viewed
+        Scene scene = new Scene(parent); // Scenen som skal vises
         Stage createCategoryStage = new Stage();
         createCategoryStage.setResizable(false);
         createCategoryStage.setScene(scene); // Sets the new scene
@@ -129,6 +134,12 @@ public class MainViewController implements Initializable {
         categoryListView.getItems().clear();
         categoryListView.setItems(categoryModel.getObservableCategories());
     }
+
+    /**
+     * Metoden handleEditCategory styrer knappen "Edit" under Category, som åbner EditCategory.fxml
+     * @param actionEvent javaFX event klasse
+     * @throws IOException
+     */
 
     public void handleEditCategory(ActionEvent actionEvent) throws IOException {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
@@ -151,6 +162,11 @@ public class MainViewController implements Initializable {
             categoryListView.setItems(categoryModel.getObservableCategories());
         }
     }
+
+    /**
+     * handleDeleteCategory styrer knappen "delete" under Category metoden sletter et specifikt valgt category objekt
+     * @param actionEvent javaFX event klasse
+     */
 
     public void handleDeleteCategory(ActionEvent actionEvent) {
         if (categoryListView.getSelectionModel().getSelectedItem() == null) {
