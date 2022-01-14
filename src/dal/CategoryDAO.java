@@ -17,6 +17,14 @@ public class CategoryDAO {
          databaseConnector = new DatabaseConnector();
     }
 
+    /**
+     *      i getAllCategories metoden får vi data fra databasen, som bruges til
+     *      at lave et category objekt, som derefter bliver sat ind i en liste
+     *      i metoden, listen er allCategories.
+     * @return allCategories listen
+     * @throws IOException
+     */
+
     public List<Category> getAllCategories() throws IOException {
         List<Category> allCategories = new ArrayList<>();
         try (Connection connection = databaseConnector.getConnection()) {
@@ -34,6 +42,17 @@ public class CategoryDAO {
         }
         return allCategories;
     }
+
+    /**
+     *
+     * @param categoryName navnet / titlen af kategorien (String)
+     *              createCategory metoden laver et category objekt i vores database.
+     *              id bliver incremented af vores database og sendt tilbage til
+     *              applikationen. Id'et bliver forøget med 1 hver gang et nyt objekt
+     *              bliver tilføjet.
+     * @return det nye kategori objekt
+     * @throws SQLServerException
+     */
 
     public Category createCategory(String categoryName) throws SQLServerException {
         int newID = -1;
@@ -57,6 +76,14 @@ public class CategoryDAO {
         return new Category(newID, categoryName);
     }
 
+    /**
+     *
+     * @param categoryUpdate Metoden her bruges, når man vil redigere
+     *                       et kategori objekt ved brug af SQL UPDATE statement.
+     *                       Overskriver det allerede eksisterende kategori objekt.
+     * @throws SQLException
+     */
+
     public void updateCategory(Category categoryUpdate) throws SQLException {
         try (Connection connection = databaseConnector.getConnection()){
             String sql = "UPDATE Category SET Name=? WHERE Id = ?;";
@@ -70,6 +97,12 @@ public class CategoryDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     *
+     * @param categoryDelete denne metode sletter valgte kategori objekt
+     *                       fra databasen.
+     */
 
     public void deleteCategory(Category categoryDelete) {
         try (Connection connection = databaseConnector.getConnection()) {
@@ -87,6 +120,13 @@ public class CategoryDAO {
         }
     }
 
+
+    /**
+     * Denne metode sletter en film fra en kategori
+     * @param category Kategori objektet film objektet bliver slettet fra
+     * @param movie Det valgte film objekt
+     */
+
     public void deleteMovieFromCategory(Category category, Movie movie) {
         try (Connection connection = databaseConnector.getConnection()) {
             String sql = "DELETE FROM CatMovie WHERE categoryId = ? AND movieId = ?";
@@ -98,6 +138,17 @@ public class CategoryDAO {
             throwables.printStackTrace();
         }
     }
+
+
+    /**
+     * Denne metode viser alle Film i en specifik kategori ved at
+     * vise et ResultSet, som viser alle MovieId's på i den valgte kategori.
+     * For hver eneste linje i ResultSet vil et nye movie objekt blive dannet
+     * ud fra movieId og blive tilføjet til listen, som bliver returneret.
+     * @param category Specifikke kategori objekt
+     * @return en liste kaldt moviesInCategory, som indeholder alle film i den valgte kategori.
+     * som er "assigned" til den valgte kategori.
+     */
 
     public List<Movie> getAllMoviesFromCategory(Category category) {
         List<Movie> moviesInCategory = new ArrayList<>();
@@ -132,6 +183,13 @@ public class CategoryDAO {
         return moviesInCategory;
     }
 
+    /**
+     * addMovieToCategory tilføjer den valgte film til den valgte kategori
+     * ved at koble den valgte films MovieId til den valgte kategoros CategoryId.
+     * @param category Den valgte kategori.
+     * @param movie Den valgte film.
+     */
+
     public void addMovieToCategory(Category category, Movie movie){
         String sql = "INSERT INTO CatMovie(CategoryId, MovieId) VALUES (?,?)";
         try (Connection connection = databaseConnector.getConnection()) {
@@ -142,10 +200,5 @@ public class CategoryDAO {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
-    }
-
-    public static void main(String[] args) throws IOException, SQLServerException {
-        CategoryDAO categoryDAO = new CategoryDAO();
-
     }
 }
