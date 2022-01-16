@@ -164,7 +164,7 @@ public class MainViewController implements Initializable {
     }
 
     /**
-     * handleDeleteCategory styrer knappen "delete" under Category metoden sletter et specifikt valgt category objekt
+     * handleDeleteCategory styrer knappen "delete" under Category listView. Metoden sletter et specifikt valgt category objekt
      * @param actionEvent javaFX event klasse
      */
 
@@ -177,6 +177,13 @@ public class MainViewController implements Initializable {
         }
     }
 
+
+    /**
+     * handleCreateMovieButton styrer knappen "Create" under allMovies tableview, som åbner "gui/view/CreateMovie.fxml"
+     * @param actionEvent javaFX event klasse
+     * @throws IOException
+     */
+
     public void handleCreateMovieButton(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/gui/view/CreateMovie.fxml"));
         Stage stage = new Stage();
@@ -187,6 +194,12 @@ public class MainViewController implements Initializable {
         allMoviesTable.getItems().clear();
         allMoviesTable.setItems(movieModel.getObservableMovies());
     }
+
+    /**
+     * handleEditMovieButton styrer knappen "Edit" under allMovies tableview, som åbner "gui/view/EditMovie.fxml"
+     * @param actionEvent javaFX event klasse
+     * @throws IOException
+     */
 
     public void handleEditMovieButton(ActionEvent actionEvent) throws IOException {
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
@@ -210,6 +223,10 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /**
+     * handleDeleteMovieButton styrer knappen "delete" under Movie TableView. Metoden sletter et specifikt valgt Movie objekt
+     * @param actionEvent javaFX event klasse
+     */
 
     public void handleDeleteMovieButton(ActionEvent actionEvent) {
         if (allMoviesTable.getSelectionModel().getSelectedItem() == null) {
@@ -220,12 +237,20 @@ public class MainViewController implements Initializable {
         }
     }
 
+    /**
+     * Error message
+     * @param text
+     */
 
     private void error(String text) {
         Alert alert = new Alert(Alert.AlertType.ERROR, text, ButtonType.OK);
         alert.showAndWait();
     }
 
+    /**
+     * addMovieToCategoryBtn Styrer knappen "Add", som tilføjer et Movie objekt til en Category objekt
+     * @param actionEvent javaFX event klasse
+     */
     public void addMovieToCategoryBtn(ActionEvent actionEvent) {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
@@ -234,6 +259,7 @@ public class MainViewController implements Initializable {
         moviesTable.getItems().clear();
         moviesTable.setItems(categoryModel.getAllMoviesFromCategoriesObservable(selectedCategory));
     }
+
 
     public void handleRadioButton(ActionEvent actionEvent) {
         if (radioButtonTitle.isSelected()){
@@ -244,6 +270,13 @@ public class MainViewController implements Initializable {
             filterType = "categoryFilter";
         }
     }
+
+    /**
+     * handleButtonPlay Styrer Play/Pause stop knappen, som enten starter eller stopper en film i at blive afspillet.
+     * @param actionEvent javaFX event klasse
+     * @throws IOException
+     * @throws SQLServerException
+     */
 
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException, SQLServerException {
         if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {

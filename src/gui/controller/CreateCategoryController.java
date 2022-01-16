@@ -19,10 +19,21 @@ public class CreateCategoryController {
         categoryModel = new CategoryModel();
     }
 
+    /**
+     * handleAcceptButton opretter det nye Category objekt
+     * @param actionEvent javaFX event klasse
+     * @throws SQLServerException
+     */
+
     public void handleAcceptButton(ActionEvent actionEvent) throws SQLServerException {
         categoryModel.createCategory(nameInput.getText());
         closeWindow();
     }
+
+    /**
+     * handleCancelButton Cancel-Knappen, som lukker "gui/view/CreateCategory.fxml"
+     * @param actionEvent javaFX event klasse
+     */
 
     public void handleCancelButton(ActionEvent actionEvent) {
         closeWindow();

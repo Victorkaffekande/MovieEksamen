@@ -30,6 +30,13 @@ public class EditCategoryController {
         categoryModel = new CategoryModel();
     }
 
+    /**
+     * handleAcceptBtn "Accept-knappen", som overwriter det gamle navn/titel tilknyttet Category objektet med det
+     * nye navn/titel
+     * @param actionEvent javaFX event klasse
+     * @throws SQLException
+     */
+
     public void handleAcceptBtn(ActionEvent actionEvent) throws SQLException {
         if (!enterCategoryName.getText().isEmpty()) {
             Category categoryUpdate = new Category(id, enterCategoryName.getText());
@@ -54,7 +61,12 @@ public class EditCategoryController {
         }
 
 
-        public void handleCancelBtn (ActionEvent actionEvent){
+    /**
+     * handleCancelBtn Cancel-Knappen, som lukker "gui/view/EditCategory.fxml"
+     * @param actionEvent javaFX event klasse
+     */
+
+    public void handleCancelBtn (ActionEvent actionEvent){
             Stage stage = (Stage) newCategoryCancelEdit.getScene().getWindow();
             stage.close();
         }

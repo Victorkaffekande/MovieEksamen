@@ -51,10 +51,22 @@ public class EditMovieController {
     }
 
 
+    /**
+     * Cancel-Knappen, som lukker "gui/view/EditMovie.fxml"
+     * @param actionEvent javaFX event klasse
+     */
+
     public void handleNewMovieCancelEdit(ActionEvent actionEvent) {
         Stage stage = (Stage) newMovieCancelEdit.getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * handleNewMovieAcceptEdit er "Accept-knappen", som overwriter de gamle values tilknyttet et movie objekt med de
+     * nye values
+     * @param actionEvent javaFX event klasse
+     * @throws SQLException
+     */
 
     public void handleNewMovieAcceptEdit(ActionEvent actionEvent) throws SQLException {
         if (!txtMovieTitleEdit.getText().isEmpty() && !txtMovieRatingEdit.getText().isEmpty() && !txtMovieFilepathEdit.getText().isEmpty()) {
@@ -71,6 +83,12 @@ public class EditMovieController {
             alert.setHeaderText("fill out all textfields");
             alert.showAndWait();        }
     }
+
+    /**
+     * handleChooseFilePath er Choose knappen, som man benytter, når man skal vælge/finde Filepath. Da filepath er en
+     * mp4 fil, da man ønsker at finde en film.
+     * @param actionEvent javaFX event klasse
+     */
 
     public void handleChooseFilepath(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
