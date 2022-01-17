@@ -29,7 +29,14 @@ public class Filter {
      */
     public List<Movie> search(List<Movie> movieList, String query, String filterType) throws SQLException, IOException {
         List<Movie> result = new ArrayList<>();
+        int[] categoryIds  = getCategoryIds(query);
+
         for (Movie movie : movieList) {
+            if (Objects.equals(filterType,"categoryFilter")){
+                if (compareCategory(movie,categoryIds)){
+                    result.add(movie);
+                }
+            }
             if (Objects.equals(filterType, "movieFilter")) {
                 if (compareToTitle(movie, query)) {
                     result.add(movie);
@@ -44,12 +51,7 @@ public class Filter {
                 }
             }
         }
-        if (Objects.equals(filterType, "categoryFilter")) {
-            if (Objects.equals(query, "")){
-                result.addAll(movieList);
-            }
-            result.addAll(containedInCategory(query));
-        }
+        
         return result;
     }
 
@@ -75,47 +77,34 @@ public class Filter {
         return false;
     }
 
-    ///TODO fix category search
-    private List<Movie> containedInCategory(String query) throws SQLException, IOException {
-        List<Movie> moviesInCategory = new ArrayList<>();
-        int[] categoryIds = getCategoryIds(query);
-        if (categoryIds[0] != 0) {
-            for (int i : categoryIds) {
-                try (Connection connection = databaseConnector.getConnection()) {
-                    String sql = "SELECT * FROM CatMovie WHERE CategoryId =? ";
-                    PreparedStatement ps = connection.prepareStatement(sql);
-                    ps.setInt(1, i);
-                    ResultSet rs = ps.executeQuery();
-                    while (rs.next()) {
-                        String sql2 = "SELECT top(1) * from movie where Id = ?";
-                        PreparedStatement ps2 = connection.prepareStatement(sql2);
-                        ps2.setInt(1, rs.getInt("MovieId"));
-                        ResultSet rs2 = ps2.executeQuery();
-                        while (rs2.next()) {
-                            int id = rs2.getInt("ID");
-                            String name = rs2.getString("Name");
-                            float rating = rs2.getFloat("Rating");
-                            String filelink = rs2.getString("filelink");
-                            java.sql.Timestamp timestamp = rs2.getTimestamp("lastview");
-                            float personalRating = rs2.getFloat("personalRating");
 
-                            Movie movie = new Movie(id, name, rating, filelink, timestamp,personalRating);
-                                moviesInCategory.add(movie);
-                        }
+    private boolean compareCategory(Movie movie, int[] categoryIds) throws SQLException {
+        if (categoryIds[0] == 0){
+            return false;
+        }
+
+        try (Connection connection = databaseConnector.getConnection()) {
+            for (int cId : categoryIds) {
+                String sql = "SELECT * FROM CatMovie WHERE CategoryId =? ";
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setInt(1, cId);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()){
+                    if (movie.getId() == rs.getInt("MovieId")){
+                        return true;
                     }
                 }
             }
-
         }
-        return moviesInCategory;
+        return false;
     }
 
     private int[] getCategoryIds(String category) throws SQLException, IOException {
         String[] catArray = category.toLowerCase(Locale.ROOT).trim().split(" ");
 
-        List<Category> allCats = categoryDAO.getAllCategories();
+        List<Category> allCategories = categoryDAO.getAllCategories();
         List<String> allCatNames = new ArrayList<>();
-        for (Category c : allCats) {
+        for (Category c : allCategories) {
             allCatNames.add(c.getName().toLowerCase());
         }
         int[] categoryIds = new int[catArray.length];

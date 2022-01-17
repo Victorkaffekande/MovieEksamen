@@ -55,7 +55,6 @@ public class EditMovieController {
      * Cancel-Knappen, som lukker "gui/view/EditMovie.fxml"
      * @param actionEvent javaFX event klasse
      */
-
     public void handleNewMovieCancelEdit(ActionEvent actionEvent) {
         Stage stage = (Stage) newMovieCancelEdit.getScene().getWindow();
         stage.close();
@@ -67,7 +66,6 @@ public class EditMovieController {
      * @param actionEvent javaFX event klasse
      * @throws SQLException
      */
-
     public void handleNewMovieAcceptEdit(ActionEvent actionEvent) throws SQLException {
         if (!txtMovieTitleEdit.getText().isEmpty() && !txtMovieRatingEdit.getText().isEmpty() && !txtMovieFilepathEdit.getText().isEmpty()) {
 
@@ -89,7 +87,6 @@ public class EditMovieController {
      * mp4 fil, da man ønsker at finde en film.
      * @param actionEvent javaFX event klasse
      */
-
     public void handleChooseFilepath(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movies", "*.mp4", "*.mpeg4"));
@@ -101,4 +98,6 @@ public class EditMovieController {
             txtMovieFilepathEdit.setText( file.getName());
         }
     }
+
+
 }
