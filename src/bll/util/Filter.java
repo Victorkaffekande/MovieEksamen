@@ -29,29 +29,32 @@ public class Filter {
      */
     public List<Movie> search(List<Movie> movieList, String query, String filterType) throws SQLException, IOException {
         List<Movie> result = new ArrayList<>();
-        int[] categoryIds  = getCategoryIds(query);
+        int[] categoryIds = getCategoryIds(query);
 
         for (Movie movie : movieList) {
-            if (Objects.equals(filterType,"categoryFilter")){
-                if (compareCategory(movie,categoryIds)){
-                    result.add(movie);
+            switch (filterType) {
+                case "categoryFilter" -> {
+                    if (compareCategory(movie, categoryIds)) {
+                        result.add(movie);
+                    }
                 }
-            }
-            if (Objects.equals(filterType, "movieFilter")) {
-                if (compareToTitle(movie, query)) {
-                    result.add(movie);
+
+                case "movieFilter" -> {
+                    if (compareToTitle(movie, query)) {
+                        result.add(movie);
+                    }
                 }
-            }
-            if (Objects.equals(filterType, "ratingFilter")) {
-                if (Objects.equals(query, "")) {
-                    query = "0";
-                }
-                if (compareRating(movie, query)) {
-                    result.add(movie);
+
+                case "ratingFilter" -> {
+                    if (Objects.equals(query, "")) {
+                        query = "0";
+                    }
+                    if (compareRating(movie, query)) {
+                        result.add(movie);
+                    }
                 }
             }
         }
-
         return result;
     }
 
@@ -79,7 +82,7 @@ public class Filter {
 
 
     private boolean compareCategory(Movie movie, int[] categoryIds) throws SQLException {
-        if (categoryIds[0] == 0){
+        if (categoryIds[0] == 0) {
             return false;
         }
 
@@ -89,8 +92,8 @@ public class Filter {
                 PreparedStatement ps = connection.prepareStatement(sql);
                 ps.setInt(1, cId);
                 ResultSet rs = ps.executeQuery();
-                while (rs.next()){
-                    if (movie.getId() == rs.getInt("MovieId")){
+                while (rs.next()) {
+                    if (movie.getId() == rs.getInt("MovieId")) {
                         return true;
                     }
                 }
