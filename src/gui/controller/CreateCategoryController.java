@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CreateCategoryController {
+public class CreateCategoryController extends CategoryController {
 
     @FXML
     private TextField nameInput;
@@ -26,8 +26,12 @@ public class CreateCategoryController {
      */
 
     public void handleAcceptButton(ActionEvent actionEvent) throws SQLServerException {
-        categoryModel.createCategory(nameInput.getText());
-        closeWindow();
+        if (!getName(nameInput).isEmpty()){
+            categoryModel.createCategory(getName(nameInput));
+            closeWindow(nameInput);
+        }else{
+            error("Input name");
+        }
     }
 
     /**
@@ -36,14 +40,8 @@ public class CreateCategoryController {
      */
 
     public void handleCancelButton(ActionEvent actionEvent) {
-        closeWindow();
+        closeWindow(nameInput);
     }
 
-    /**
-     * closes the window
-     */
-    private void closeWindow() {
-        Stage stage = (Stage) nameInput.getScene().getWindow();
-        stage.close();
-    }
+
 }

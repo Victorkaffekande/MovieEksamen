@@ -205,13 +205,8 @@ public class MainViewController implements Initializable {
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {
             FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/EditMovie.fxml"));
-            Scene mainWindowScene = null;
+            Scene mainWindowScene = new Scene(root.load());
 
-            try {
-                mainWindowScene = new Scene(root.load());
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
             Stage editMovieStage = new Stage();
             editMovieStage.setScene(mainWindowScene);
             EditMovieController editMovieController = root.getController();

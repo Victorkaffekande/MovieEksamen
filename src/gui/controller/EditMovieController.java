@@ -37,19 +37,27 @@ public class EditMovieController extends MovieController implements Initializabl
     @FXML
     private Button newMovieAcceptEdit;
 
+    private int id;
+    private java.sql.Timestamp lastView;
+    private MovieModel movieModel;
+
     public EditMovieController() throws IOException {
+        movieModel = new MovieModel();
     }
 
     public void setMovie(Movie movie) {
-    txtMovieTitleEdit.setText(movie.getName());
-    txtMovieRatingEdit.setText(Float.toString(movie.getRating()));
-    txtMovieFilepathEdit.setText(movie.getFileLink());
-    txtMoviePersonalRatingEdit.setText(Float.toString(movie.getPersonalRating()));
+        id = movie.getId();
+        lastView = movie.getLastView();
+        txtMovieTitleEdit.setText(movie.getName());
+        txtMovieRatingEdit.setText(Float.toString(movie.getRating()));
+        txtMovieFilepathEdit.setText(movie.getFileLink());
+        txtMoviePersonalRatingEdit.setText(Float.toString(movie.getPersonalRating()));
     }
 
 
     /**
      * Cancel-Knappen, som lukker "gui/view/EditMovie.fxml"
+     *
      * @param actionEvent javaFX event klasse
      */
     public void handleNewMovieCancelEdit(ActionEvent actionEvent) {
@@ -58,29 +66,38 @@ public class EditMovieController extends MovieController implements Initializabl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       addNumbersOnlyListener(txtMovieRatingEdit);
-       addNumbersOnlyListener(txtMoviePersonalRatingEdit);
+        addNumbersOnlyListener(txtMovieRatingEdit);
+        addNumbersOnlyListener(txtMoviePersonalRatingEdit);
     }
 
     /**
      * handleNewMovieAcceptEdit er "Accept-knappen", som overwriter de gamle values tilknyttet et movie objekt med de
      * nye values
+     *
      * @param actionEvent javaFX event klasse
      * @throws SQLException
      */
     public void handleNewMovieAcceptEdit(ActionEvent actionEvent) throws SQLException {
-        acceptButton(txtMovieTitleEdit,txtMovieFilepathEdit,txtMovieRatingEdit,txtMoviePersonalRatingEdit);
+        String title = getMovieTitle(txtMovieTitleEdit);
+        String filePath = getFilePath(txtMovieFilepathEdit);
+        float rating = getRating(txtMovieRatingEdit);
+        float personalRating = getPersonalRating(txtMoviePersonalRatingEdit);
+
+        Movie movie = new Movie(id, title, rating, filePath, lastView, personalRating);
+        movieModel.updateMovie(movie);
+
+        closeWindow(newMovieAcceptEdit);
     }
 
     /**
      * handleChooseFilePath er Choose knappen, som man benytter, når man skal vælge/finde Filepath. Da filepath er en
      * mp4 fil, da man ønsker at finde en film.
+     *
      * @param actionEvent javaFX event klasse
      */
     public void handleChooseFilepath(ActionEvent actionEvent) {
         chooseFilePath(txtMovieFilepathEdit);
     }
-
 
 
 }

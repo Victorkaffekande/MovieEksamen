@@ -1,5 +1,6 @@
 package gui.controller;
 
+import gui.Model.MovieModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,9 +28,11 @@ public class CreateMovieController extends MovieController implements Initializa
     @FXML
     private TextField movieFilePathTxt;
 
+    private MovieModel movieModel;
+
 
     public CreateMovieController()  throws IOException {
-
+        movieModel = new MovieModel();
     }
 
     @Override
@@ -44,7 +47,12 @@ public class CreateMovieController extends MovieController implements Initializa
      * @throws SQLException
      */
     public void saveMovieBtn(ActionEvent actionEvent) throws SQLException {
-        acceptButton(movieTitleTxt,movieFilePathTxt,movieRatingTxt,moviePersonalRatingTxt);
+        String title = getMovieTitle(movieTitleTxt);
+        String filePath = getFilePath(movieFilePathTxt);
+        float rating = getRating(movieRatingTxt);
+        float personalRating = getPersonalRating(moviePersonalRatingTxt);
+        movieModel.createMovie(title,rating,filePath,personalRating);
+        closeWindow(cancelBtn);
     }
 
     /**

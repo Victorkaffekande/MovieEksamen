@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class EditCategoryController {
+public class EditCategoryController extends CategoryController{
     @FXML
     private Button acceptCategoryBtn;
     @FXML
@@ -22,9 +22,7 @@ public class EditCategoryController {
     private Button newCategoryCancelEdit;
     private int id;
 
-   private CategoryModel categoryModel;
-
-    private CategoryManager categoryManager;
+    private CategoryModel categoryModel;
 
     public EditCategoryController() throws IOException {
         categoryModel = new CategoryModel();
@@ -33,42 +31,32 @@ public class EditCategoryController {
     /**
      * handleAcceptBtn "Accept-knappen", som overwriter det gamle navn/titel tilknyttet Category objektet med det
      * nye navn/titel
+     *
      * @param actionEvent javaFX event klasse
      * @throws SQLException
      */
 
     public void handleAcceptBtn(ActionEvent actionEvent) throws SQLException {
-        if (!enterCategoryName.getText().isEmpty()) {
-            Category categoryUpdate = new Category(id, enterCategoryName.getText());
-
+        if (!getName(enterCategoryName).isEmpty()) {
+            Category categoryUpdate = new Category(id, getName(enterCategoryName));
             categoryModel.updateCategory(categoryUpdate);
-
-
-            Stage stage = (Stage) acceptCategoryBtn.getScene().getWindow();
-            stage.close();
+            closeWindow(acceptCategoryBtn);
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Warning");
-            alert.setHeaderText("fill out all textfields");
-            alert.showAndWait();
+            error("please input a name");
         }
     }
 
-        public void setCategory (Category category)
-        {
-            id = category.getId();
-            enterCategoryName.setText(category.getName());
-        }
-
+    public void setCategory(Category category) {
+        id = category.getId();
+        enterCategoryName.setText(category.getName());
+    }
 
     /**
      * handleCancelBtn Cancel-Knappen, som lukker "gui/view/EditCategory.fxml"
      * @param actionEvent javaFX event klasse
      */
-
-    public void handleCancelBtn (ActionEvent actionEvent){
-            Stage stage = (Stage) newCategoryCancelEdit.getScene().getWindow();
-            stage.close();
-        }
+    public void handleCancelBtn(ActionEvent actionEvent) {
+        closeWindow(newCategoryCancelEdit);
     }
+}
 

@@ -14,7 +14,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public abstract  class MovieController {
-    MovieModel movieModel;
+    private final MovieModel movieModel;
+    private final int  MAXRATING = 10;
 
     protected MovieController() throws IOException {
         movieModel = new MovieModel();
@@ -28,46 +29,46 @@ public abstract  class MovieController {
         });
     }
 
-    public void acceptButton(TextField titleField, TextField fileField, TextField ratingField, TextField personalRatingField) throws SQLException {
-        String movieTitle="";
-        String filePath="";
-        float rating=-1;
-        float personalRating=-1;
-        int maxRating = 10;
-
-        if (!titleField.getText().isEmpty()){
-            movieTitle = titleField.getText();
+    public String getMovieTitle(TextField titleField){
+        if (!titleField.getText().trim().isEmpty()){
+            return titleField.getText().trim();
         }
         else{
             errorWindow("Please name the movie");
         }
+        return null;
+    }
 
-        if (!ratingField.getText().isEmpty() && Float.parseFloat(ratingField.getText()) <= maxRating){
-            rating= Float.parseFloat(ratingField.getText());
-        }else{
-            errorWindow("Please input an imdb rating between 0 and 10 for your movie");
-        }
-
-        if (!personalRatingField.getText().isEmpty() && Float.parseFloat(personalRatingField.getText()) <= maxRating){
-            personalRating = Float.parseFloat(personalRatingField.getText());
-
-        }else{
-            errorWindow("Please input a personal rating between 0 and 10");
-        }
-
-        if (!fileField.getText().isEmpty()){
-            filePath = fileField.getText();
+    public String getFilePath(TextField fileField){
+        if (!fileField.getText().trim().isEmpty()){
+            return fileField.getText().trim();
         }else{
             errorWindow("Please select a movie file");
         }
-
-        if (!movieTitle.isEmpty() && rating >= 0 && personalRating >= 0 && !filePath.isEmpty()) {
-            movieModel.createMovie(movieTitle, rating,filePath,personalRating);
-
-            Stage stage = (Stage) titleField.getScene().getWindow();
-            stage.close();
-        }
+        return null;
     }
+
+    public float getRating(TextField ratingField){
+        float rating = -1;
+        if (!ratingField.getText().trim().isEmpty() && Float.parseFloat(ratingField.getText().trim()) <= MAXRATING){
+            rating = Float.parseFloat(ratingField.getText().trim());
+        }else{
+            errorWindow("Please input an imdb rating between 0 and 10 for your movie");
+        }
+        return rating;
+    }
+
+    public float getPersonalRating(TextField personalRatingField){
+        float personalRating = -1;
+        if (!personalRatingField.getText().trim().isEmpty() && Float.parseFloat(personalRatingField.getText().trim()) <= MAXRATING){
+            personalRating = Float.parseFloat(personalRatingField.getText());
+        }else{
+            errorWindow("Please input a personal rating between 0 and 10");
+        }
+        return personalRating;
+    }
+
+
     private void errorWindow(String errorTxt){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Warning");
@@ -88,6 +89,10 @@ public abstract  class MovieController {
 
     public void closeWindow(Button anyButton){
         Stage stage = (Stage) anyButton.getScene().getWindow();
+        stage.close();
+    }
+    public void closeWindow(TextField anyTextField){
+        Stage stage = (Stage) anyTextField.getScene().getWindow();
         stage.close();
     }
 }

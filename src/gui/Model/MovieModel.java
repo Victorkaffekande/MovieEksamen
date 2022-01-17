@@ -30,8 +30,8 @@ public class MovieModel {
 
     }
 
-    public void createMovie(String name, float rating, String fileLink, float personalRating) throws SQLException {
-        movieManager.create(name, rating, fileLink, personalRating);
+    public Movie createMovie(String name, float rating, String fileLink, float personalRating) throws SQLException {
+        return movieManager.create(name, rating, fileLink, personalRating);
     }
     public void deleteMovie(Movie movie){
         movieManager.delete(movie);
