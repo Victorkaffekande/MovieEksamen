@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
-public class EditMovieController implements Initializable {
+public class EditMovieController extends MovieController implements Initializable {
 
     @FXML
     private TextField txtMoviePersonalRatingEdit;
@@ -37,18 +37,10 @@ public class EditMovieController implements Initializable {
     @FXML
     private Button newMovieAcceptEdit;
 
-    private int id;
-    private Timestamp lastView;
-
-    private MovieModel moviemodel;
-
     public EditMovieController() throws IOException {
-        moviemodel = new MovieModel();
     }
 
     public void setMovie(Movie movie) {
-    id = movie.getId();
-    lastView = movie.getLastView();
     txtMovieTitleEdit.setText(movie.getName());
     txtMovieRatingEdit.setText(Float.toString(movie.getRating()));
     txtMovieFilepathEdit.setText(movie.getFileLink());
@@ -61,23 +53,13 @@ public class EditMovieController implements Initializable {
      * @param actionEvent javaFX event klasse
      */
     public void handleNewMovieCancelEdit(ActionEvent actionEvent) {
-        Stage stage = (Stage) newMovieCancelEdit.getScene().getWindow();
-        stage.close();
+        closeWindow(newMovieCancelEdit);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        txtMovieRatingEdit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,2}([\\.]\\d{0,1})?")) {
-                txtMovieRatingEdit.setText(oldValue);
-            }
-        });
-
-        txtMoviePersonalRatingEdit.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d{0,2}([\\.]\\d{0,1})?")) {
-                txtMoviePersonalRatingEdit.setText(oldValue);
-            }
-        });
+       addNumbersOnlyListener(txtMovieRatingEdit);
+       addNumbersOnlyListener(txtMoviePersonalRatingEdit);
     }
 
     /**
@@ -87,47 +69,7 @@ public class EditMovieController implements Initializable {
      * @throws SQLException
      */
     public void handleNewMovieAcceptEdit(ActionEvent actionEvent) throws SQLException {
-        String movieTitle="";
-        String filePath="";
-        float rating=-1;
-        float personalRating=-1;
-        int maxRating = 10;
-
-        if (!txtMovieTitleEdit.getText().isEmpty()){
-            movieTitle = txtMovieTitleEdit.getText();
-        }
-        else{
-            errorWindow("Please name the movie");
-        }
-
-        if (!txtMovieRatingEdit.getText().isEmpty() && Float.parseFloat(txtMovieRatingEdit.getText()) <= maxRating){
-            rating= Float.parseFloat(txtMovieRatingEdit.getText());
-        }else{
-            errorWindow("Please input an imdb rating between 0 and 10 for your movie");
-        }
-
-        if (!txtMoviePersonalRatingEdit.getText().isEmpty() && Float.parseFloat(txtMoviePersonalRatingEdit.getText()) <= maxRating){
-            personalRating = Float.parseFloat(txtMoviePersonalRatingEdit.getText());
-
-        }else{
-            errorWindow("Please input a personal rating");
-        }
-
-        if (!txtMovieFilepathEdit.getText().isEmpty()){
-            filePath = txtMovieFilepathEdit.getText();
-        }else{
-            errorWindow("Please select a movie file");
-        }
-
-        if (!movieTitle.isEmpty() && rating >= 0 && personalRating >= 0 && !filePath.isEmpty()) {
-
-            Movie updateMovie = new Movie(id, movieTitle,rating,filePath,lastView,personalRating);
-
-            moviemodel.updateMovie(updateMovie);
-
-            Stage stage = (Stage) newMovieAcceptEdit.getScene().getWindow();
-            stage.close();
-        }
+        acceptButton(txtMovieTitleEdit,txtMovieFilepathEdit,txtMovieRatingEdit,txtMoviePersonalRatingEdit);
     }
 
     /**
@@ -136,23 +78,10 @@ public class EditMovieController implements Initializable {
      * @param actionEvent javaFX event klasse
      */
     public void handleChooseFilepath(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movies", "*.mp4", "*.mpeg4"));
-        fileChooser.setInitialDirectory(new File("Movies/" ));
-        File file = fileChooser.showOpenDialog(null);
-
-
-        if (file != null) {
-            txtMovieFilepathEdit.setText( file.getName());
-        }
+        chooseFilePath(txtMovieFilepathEdit);
     }
 
-    private void errorWindow(String errorTxt){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Warning");
-        alert.setHeaderText(errorTxt);
-        alert.showAndWait();
-    }
+
 
 }
 
