@@ -1,25 +1,57 @@
 package gui.controller;
 
-import be.Movie;
+import gui.Model.MoviePlayModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.stage.Stage;
 
-public class MoviePlayController {
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class MoviePlayController implements Initializable {
+    @FXML
+    private Button closeButton;
     @FXML
     private MediaView mediaView;
-    private String media_URL = "Movies/";
     private Media media;
     private MediaPlayer mediaPlayer;
-
-    private Movie movie;
+    private File file;
+    private MoviePlayModel moviePlayModel;
     public MoviePlayController(){
-        media = new Media(media_URL + setMovieUrl());
+        moviePlayModel = new MoviePlayModel();
     }
 
-    public String setMovieUrl(){
-        return movie.getFileLink();
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        file = new File(MoviePlayModel.movieUrl);
+        media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaPlayer.play();
+    }
+
+    public void playMovie(ActionEvent actionEvent) {
+        mediaPlayer.play();
+
+    }
+
+    public void pauseMovie(ActionEvent actionEvent) {
+        mediaPlayer.pause();
+    }
+
+    public void stopMovie(){
+        mediaPlayer.stop();
+    }
+
+    public void closeMovieView(ActionEvent actionEvent) {
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stopMovie();
+        stage.close();
     }
 }

@@ -5,8 +5,10 @@ import be.Movie;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import gui.Model.CategoryModel;
 import gui.Model.MovieModel;
+import gui.Model.MoviePlayModel;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.File;
@@ -63,6 +66,7 @@ public class MainViewController implements Initializable {
 
     private MovieModel movieModel;
     private CategoryModel categoryModel;
+    public MoviePlayModel moviePlayModel;
 
     private String moviePath = "Movies/";
     private String filterType;
@@ -70,7 +74,7 @@ public class MainViewController implements Initializable {
     public MainViewController() throws IOException {
         movieModel = new MovieModel();
         categoryModel = new CategoryModel();
-
+        moviePlayModel = new MoviePlayModel();
 
         moviesTable = new TableView();
         moviesNameColumn = new TableColumn();
@@ -306,13 +310,13 @@ public class MainViewController implements Initializable {
         if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
             movieModel.updateMovieTime(movie);
-            Desktop.getDesktop().open(new File(moviePath + movie.getFileLink()));
+            Desktop.getDesktop().open(new File(moviePlayModel.getMovieUrl() + movie.getFileLink()));
             allMoviesTable.getItems().clear();
             allMoviesTable.setItems(movieModel.getObservableMovies());
         } else if (moviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie2 = moviesTable.getSelectionModel().getSelectedItem();
             movieModel.updateMovieTime(movie2);
-            Desktop.getDesktop().open(new File(moviePath + movie2.getFileLink()));
+            Desktop.getDesktop().open(new File(moviePlayModel.getMovieUrl() + movie2.getFileLink()));
             moviesTable.refresh();
         } else
             error("Please select a movie to play");
@@ -349,24 +353,15 @@ public class MainViewController implements Initializable {
     }
 
     public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
-        Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
-        if (selectedMovie != null) {
-            FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/MoviePlay.fxml"));
-            Scene mainWindowScene = null;
-
-            try {
-                mainWindowScene = new Scene(root.load());
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-            Stage musicPlaystage = new Stage();
-            musicPlaystage.setScene(mainWindowScene);
-            MoviePlayController moviePlayController = root.getController();
-            moviePlayController.setMovieUrl();
-            musicPlaystage.setTitle("MoviePlay");
-            musicPlaystage.show();
+        moviePlayModel.setMovieUrl(moviePlayModel.getMovieUrl() + allMoviesTable.getSelectionModel().getSelectedItem().getFileLink());
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/MoviePlay.fxml")));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
         }
-    }
+
 
     private void oldMoviesWarning() throws IOException {
         if (!movieModel.checkForOldMovies().isEmpty()) {

@@ -1,14 +1,20 @@
 package gui.Model;
 
 import be.Movie;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 
 public class MoviePlayModel {
+    public static String movieUrl = "Movies/";
+    public static Movie movie;
 
-    private MediaPlayer mediaPlayer;
-
-    public MoviePlayModel(Movie movie){
+    public  String getMovieUrl() {
+        return movieUrl;
     }
 
+    public static Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovieUrl(String movieUrl) {
+        this.movieUrl = movieUrl;
+    }
 }
