@@ -1,17 +1,14 @@
 package gui.controller;
 
-import be.Movie;
 import gui.Model.MovieModel;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
 public abstract  class MovieController {
     private final MovieModel movieModel;

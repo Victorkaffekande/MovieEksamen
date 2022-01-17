@@ -1,19 +1,17 @@
 package gui.controller;
 
 import be.Category;
-import bll.CategoryManager;
 import gui.Model.CategoryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class EditCategoryController extends CategoryController{
+public class EditCategoryController extends CategoryController {
     @FXML
     private Button acceptCategoryBtn;
     @FXML
@@ -53,6 +51,7 @@ public class EditCategoryController extends CategoryController{
 
     /**
      * handleCancelBtn Cancel-Knappen, som lukker "gui/view/EditCategory.fxml"
+     *
      * @param actionEvent javaFX event klasse
      */
     public void handleCancelBtn(ActionEvent actionEvent) {

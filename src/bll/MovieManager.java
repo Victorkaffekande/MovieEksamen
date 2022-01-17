@@ -1,16 +1,14 @@
 package bll;
 
-import be.Category;
+
 import be.Movie;
 import bll.util.Filter;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.MovieDAO;
-import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Date;
+
 import java.util.List;
 
 /**

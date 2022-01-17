@@ -1,6 +1,5 @@
 package be;
 
-import java.util.Date;
 
 public class Movie {
 

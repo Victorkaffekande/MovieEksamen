@@ -2,14 +2,12 @@ package bll.util;
 
 import be.Category;
 import be.Movie;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.CategoryDAO;
 import dal.DatabaseConnector;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
-import java.util.function.ToDoubleBiFunction;
 
 public class Filter {
     private DatabaseConnector databaseConnector;
@@ -83,7 +81,7 @@ public class Filter {
 
     private boolean compareCategory(Movie movie, int[] categoryIds) throws SQLException {
         if (categoryIds[0] == 0) {
-            return false;
+            return true;
         }
 
         try (Connection connection = databaseConnector.getConnection()) {
@@ -130,7 +128,4 @@ public class Filter {
         return categoryIds;
     }
 
-    public static void main(String[] args) {
-        System.out.println("'test'");
-    }
 }

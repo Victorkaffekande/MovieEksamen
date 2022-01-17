@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -108,15 +107,10 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
 
+        //radio button start position
         radioButtonTitle.setSelected(true);
         filterType = "movieFilter";
-        filterInput.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            try {
-                movieModel.searchMovie(newValue, filterType);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+
         try {
             oldMoviesWarning();
         } catch (IOException e) {
@@ -161,8 +155,7 @@ public class MainViewController implements Initializable {
             editCategoryStage.showAndWait();
             categoryListView.getItems().clear();
             categoryListView.setItems(categoryModel.getObservableCategories());
-        }
-        else{
+        } else {
             error("Select a category and try again");
         }
     }
@@ -177,7 +170,7 @@ public class MainViewController implements Initializable {
             error("Please choose a category to delete");
         } else {
             Category category = categoryListView.getSelectionModel().getSelectedItem();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete "+category.getName(), ButtonType.YES, ButtonType.NO);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete " + category.getName(), ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.YES) {
                 categoryModel.deleteCategory(categoryListView.getSelectionModel().getSelectedItem());
@@ -224,7 +217,7 @@ public class MainViewController implements Initializable {
             editMovieStage.showAndWait();
             allMoviesTable.getItems().clear();
             allMoviesTable.setItems(movieModel.getObservableMovies());
-        }else {
+        } else {
             error("Select a movie and try again");
         }
     }
@@ -268,24 +261,24 @@ public class MainViewController implements Initializable {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
 
-        if (selectedMovie != null && selectedCategory != null){
+        if (selectedMovie != null && selectedCategory != null) {
             ObservableList<Movie> moviesInCategory = categoryModel.getAllMoviesFromCategoriesObservable(selectedCategory);
-            for(Movie movie : moviesInCategory){
-                if (movie.getId() == selectedMovie.getId()){
+            for (Movie movie : moviesInCategory) {
+                if (movie.getId() == selectedMovie.getId()) {
                     alReadyInCategory = true;
                     break;
                 }
             }
 
-            if (!alReadyInCategory){
+            if (!alReadyInCategory) {
                 categoryModel.addMovieToCategory(selectedCategory, selectedMovie);
                 moviesInCategory.add(selectedMovie);
                 moviesTable.getItems().clear();
                 moviesTable.setItems(moviesInCategory);
-            }else{
-                error(selectedMovie.getName() +" already exists in "+ selectedCategory.getName());
+            } else {
+                error(selectedMovie.getName() + " already exists in " + selectedCategory.getName());
             }
-        }else {
+        } else {
             error("Select a movie and which category you wish to add it to");
         }
 
@@ -326,7 +319,7 @@ public class MainViewController implements Initializable {
     }
 
     public void lookAtCategoryMovies() {
-        if (categoryListView.getSelectionModel().getSelectedItem() != null){
+        if (categoryListView.getSelectionModel().getSelectedItem() != null) {
             Category category = categoryListView.getSelectionModel().getSelectedItem();
             ObservableList<Movie> observableList = categoryModel.getAllMoviesFromCategoriesObservable(category);
             moviesTable.setItems(observableList);
@@ -337,13 +330,12 @@ public class MainViewController implements Initializable {
 
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
-        if (selectedCategory != null && selectedMovie != null){
+        if (selectedCategory != null && selectedMovie != null) {
             categoryModel.deleteMovieFromCategory(selectedCategory, selectedMovie);
 
             moviesTable.getItems().clear();
             moviesTable.setItems(categoryModel.getAllMoviesFromCategoriesObservable(selectedCategory));
-        }
-        else{
+        } else {
             error("Select a category and what movie you wish to delete");
         }
     }
@@ -351,6 +343,7 @@ public class MainViewController implements Initializable {
     public void handleMovieTableClicked(MouseEvent mouseEvent) {
         allMoviesTable.getSelectionModel().clearSelection();
     }
+
     public void allMoviesTableClicked(MouseEvent mouseEvent) {
         moviesTable.getSelectionModel().clearSelection();
     }
@@ -385,5 +378,9 @@ public class MainViewController implements Initializable {
             oldMovieStage.setResizable(false);
             oldMovieStage.showAndWait();
         }
+    }
+
+    public void handleSearchButton(ActionEvent actionEvent) throws SQLException, IOException {
+        movieModel.searchMovie(filterInput.getText(), filterType);
     }
 }
