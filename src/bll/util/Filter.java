@@ -71,7 +71,7 @@ public class Filter {
         }
         //compares movie rating to the input
         if (!stringBuilder.isEmpty()) {
-            double rating = Double.parseDouble(stringBuilder.toString());
+            float rating = Float.parseFloat(stringBuilder.toString());
             return movie.getRating() >= rating;
         }
         return false;
