@@ -39,7 +39,6 @@ public class EditMovieController implements Initializable {
 
     private int id;
     private Timestamp lastView;
-    private final int MAXRATING = 10;
 
     private MovieModel moviemodel;
 
@@ -68,21 +67,15 @@ public class EditMovieController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        txtMovieRatingEdit.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,2}([\\.]\\d{0,1})?")) {
-                    txtMovieRatingEdit.setText(oldValue);
-                }
+        txtMovieRatingEdit.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,2}([\\.]\\d{0,1})?")) {
+                txtMovieRatingEdit.setText(oldValue);
             }
         });
 
-        txtMoviePersonalRatingEdit.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (!newValue.matches("\\d{0,1}([\\.]\\d{0,1})?")) {
-                    txtMoviePersonalRatingEdit.setText(oldValue);
-                }
+        txtMoviePersonalRatingEdit.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d{0,2}([\\.]\\d{0,1})?")) {
+                txtMoviePersonalRatingEdit.setText(oldValue);
             }
         });
     }
@@ -98,6 +91,7 @@ public class EditMovieController implements Initializable {
         String filePath="";
         float rating=-1;
         float personalRating=-1;
+        int maxRating = 10;
 
         if (!txtMovieTitleEdit.getText().isEmpty()){
             movieTitle = txtMovieTitleEdit.getText();
@@ -106,13 +100,13 @@ public class EditMovieController implements Initializable {
             errorWindow("Please name the movie");
         }
 
-        if (!txtMovieRatingEdit.getText().isEmpty() && Float.parseFloat(txtMovieRatingEdit.getText()) <= MAXRATING){
+        if (!txtMovieRatingEdit.getText().isEmpty() && Float.parseFloat(txtMovieRatingEdit.getText()) <= maxRating){
             rating= Float.parseFloat(txtMovieRatingEdit.getText());
         }else{
             errorWindow("Please input an imdb rating between 0 and 10 for your movie");
         }
 
-        if (!txtMoviePersonalRatingEdit.getText().isEmpty() && Float.parseFloat(txtMoviePersonalRatingEdit.getText()) <= MAXRATING){
+        if (!txtMoviePersonalRatingEdit.getText().isEmpty() && Float.parseFloat(txtMoviePersonalRatingEdit.getText()) <= maxRating){
             personalRating = Float.parseFloat(txtMoviePersonalRatingEdit.getText());
 
         }else{
@@ -124,7 +118,6 @@ public class EditMovieController implements Initializable {
         }else{
             errorWindow("Please select a movie file");
         }
-
 
         if (!movieTitle.isEmpty() && rating >= 0 && personalRating >= 0 && !filePath.isEmpty()) {
 
