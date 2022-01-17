@@ -67,8 +67,6 @@ public class MainViewController implements Initializable {
     private MovieModel movieModel;
     private CategoryModel categoryModel;
     public MoviePlayModel moviePlayModel;
-
-    private String moviePath = "Movies/";
     private String filterType;
 
     public MainViewController() throws IOException {
