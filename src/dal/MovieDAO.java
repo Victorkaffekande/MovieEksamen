@@ -96,15 +96,19 @@ public class MovieDAO {
 
     /**
      *
-     * @param movieDelete Denne metode sletter valgte movie objekt
-     *                    fra databasen.
+     * @param movieDelete Denne metode sletter først det valgte movie objekt fra alle categorier og bagefter selve movien fra databasen.
      */
     public void deleteMovie(Movie movieDelete) {
         try (Connection connection = databaseConnector.getConnection()) {
-            String sql = "DELETE from Movie WHERE Id = ?";
+            String sql = "Delete from CatMovie WHERE MovieId = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, Integer.toString(movieDelete.getId()));
+            ps.setInt(1,movieDelete.getId());
             ps.execute();
+
+            String sql2 = "DELETE from Movie WHERE Id = ?";
+            PreparedStatement ps2 = connection.prepareStatement(sql2);
+            ps2.setInt(1, movieDelete.getId());
+            ps2.execute();
         } catch (SQLException ex) {
             System.out.println(ex);
         }
