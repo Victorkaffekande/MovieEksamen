@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,4 +59,28 @@ public class MovieModel {
         movieManager.updateMovieTime(movie);
     }
 
+    /**
+     * Denne metode tjekker om en Movie ikke er blevet afspillet de sidste 2 år og har en personlig rating på 6 eller under
+     * @return Liste af film der ikke opfylder kriterierne
+     * @throws IOException
+     */
+    public List<Movie> checkForOldMovies() throws IOException {
+        MovieManager movieManager = new MovieManager();
+        movieManager.getAllObjects();
+        int twoYearsInDays = 730;
+        int personalRatingCriteria = 6;
+        Date currentDate = new Date();
+        long time = currentDate.getTime();
+        Timestamp currentTime=new Timestamp(time);
+
+        List<Movie> tempAllMovies = getObservableMovies();
+        List<Movie> badMovies = new ArrayList<>();
+        for (Movie movie:tempAllMovies) {
+            long timeDiff = (currentTime.getTime() - movie.getLastView().getTime()) / (1000*60*60*24);
+            if (timeDiff > twoYearsInDays && movie.getPersonalRating() <= personalRatingCriteria){
+                badMovies.add(movie);
+            }
+        }
+        return badMovies;
+    }
 }

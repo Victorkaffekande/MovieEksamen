@@ -116,6 +116,11 @@ public class MainViewController implements Initializable {
                 e.printStackTrace();
             }
         });
+        try {
+            oldMoviesWarning();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -335,5 +340,17 @@ public class MainViewController implements Initializable {
     }
 
     public void allMoviesTableClicked(MouseEvent mouseEvent) {
+    }
+
+    private void oldMoviesWarning() throws IOException {
+        if (!movieModel.checkForOldMovies().isEmpty()){
+            FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/OldMoviesView.fxml"));
+            Scene mainWindowScene = new Scene(root.load());
+
+            Stage oldMovieStage = new Stage();
+            oldMovieStage.setScene(mainWindowScene);
+            oldMovieStage.setResizable(false);
+            oldMovieStage.showAndWait();
+        }
     }
 }
