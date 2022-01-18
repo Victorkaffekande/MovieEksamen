@@ -72,11 +72,11 @@ public class MovieModel {
         Date currentDate = new Date();
         long time = currentDate.getTime();
         Timestamp currentTime=new Timestamp(time);
-
+        int millisecondsToDays = 1000*60*60*24;
         List<Movie> tempAllMovies = getObservableMovies();
         List<Movie> badMovies = new ArrayList<>();
         for (Movie movie:tempAllMovies) {
-            long timeDiff = (currentTime.getTime() - movie.getLastView().getTime()) / (1000*60*60*24);
+            long timeDiff = (currentTime.getTime() - movie.getLastView().getTime()) / (millisecondsToDays);
             if (timeDiff > twoYearsInDays && movie.getPersonalRating() <= personalRatingCriteria){
                 badMovies.add(movie);
             }
