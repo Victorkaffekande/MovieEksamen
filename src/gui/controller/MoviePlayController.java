@@ -24,10 +24,13 @@ public class MoviePlayController implements Initializable {
     private File file;
     private MoviePlayModel moviePlayModel;
     private String moviePath = "Movies/";
+
     public MoviePlayController(){
         moviePlayModel = new MoviePlayModel();
     }
-
+/**
+ * Initialize metoden, der instantiserer de forskellige objekter anvendt i klassen
+ */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         file = new File(MoviePlayModel.movieUrl);
@@ -37,21 +40,32 @@ public class MoviePlayController implements Initializable {
         mediaPlayer.play();
     }
 
-    public void playMovie(ActionEvent actionEvent) {
+    /**
+     * Spiller filmen
+     */
+    public void playMovie() {
         mediaPlayer.play();
 
     }
 
-    public void pauseMovie(ActionEvent actionEvent) {
+    /**
+     * pauser filmen
+     */
+    public void pauseMovie() {
         mediaPlayer.pause();
     }
-
+/**
+ * stopper filmen og resetter mediaplayeren
+ */
     public void stopMovie(){
         mediaPlayer.stop();
         mediaPlayer.dispose();
     }
 
-    public void closeMovieView(ActionEvent actionEvent) {
+    /**
+     * lukker vinduet, stopper filmen og resetter movieUrl
+     */
+    public void closeMovieView() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stopMovie();
         moviePlayModel.setMovieUrl(moviePath);

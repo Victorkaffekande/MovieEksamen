@@ -361,7 +361,15 @@ public class MainViewController implements Initializable {
         movieModel.searchMovie(filterInput.getText(), filterType);
     }
 
-
+    /**
+     * Metode anvendt til at åbne de forskellige vinduer i programmet
+     * @param pathToFXML - Stien til FXML vinduet
+     * @param undecorated - et boolean parameter, der bestemmer hverenten der skal være dekorationer i et FXML vindue (dekorationer = forstørrrelse knappen, minimer knappen og exit krydset)
+     * @param showAndWait - et boolean parameter der bestemmer om der skal anvendes showAndWait() eller show() metoden
+     * @param title - titlen på FXML vinduet
+     * @param resizable - et boolean parameter der bestemmer om et vindue kan redigeres i størrelsen
+     * @throws IOException
+     */
     public void openScene(String pathToFXML, boolean undecorated, boolean showAndWait, String title, boolean resizable) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource(pathToFXML));
         Stage stage = new Stage();

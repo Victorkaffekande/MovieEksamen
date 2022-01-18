@@ -2,6 +2,9 @@ package gui.Model;
 
 import be.Movie;
 
+/**
+ * Model der sætter MovieUrl til anvendelse i controllerne
+ */
 public class MoviePlayModel {
     public static String movieUrl = "Movies/";
     public static Movie movie;
