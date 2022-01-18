@@ -44,13 +44,11 @@ public class CategoryDAO {
     }
 
     /**
-     *
      * @param categoryName navnet / titlen af kategorien (String)
      *              createCategory metoden laver et category objekt i vores database.
      *              id bliver incremented af vores database og sendt tilbage til
      *              applikationen. Id'et bliver forøget med 1 hver gang et nyt objekt
      *              bliver tilføjet.
-     * @return det nye kategori objekt
      */
 
     public void createCategory(String categoryName) {
@@ -63,7 +61,6 @@ public class CategoryDAO {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     /**
