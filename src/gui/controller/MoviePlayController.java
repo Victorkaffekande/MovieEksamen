@@ -23,6 +23,7 @@ public class MoviePlayController implements Initializable {
     private MediaPlayer mediaPlayer;
     private File file;
     private MoviePlayModel moviePlayModel;
+    private String moviePath = "Movies/";
     public MoviePlayController(){
         moviePlayModel = new MoviePlayModel();
     }
@@ -47,11 +48,13 @@ public class MoviePlayController implements Initializable {
 
     public void stopMovie(){
         mediaPlayer.stop();
+        mediaPlayer.dispose();
     }
 
     public void closeMovieView(ActionEvent actionEvent) {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stopMovie();
+        moviePlayModel.setMovieUrl(moviePath);
         stage.close();
     }
 }

@@ -351,6 +351,7 @@ public class MainViewController implements Initializable {
     }
 
     public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
+        //System.out.println(moviePlayModel.getMovieUrl());
         moviePlayModel.setMovieUrl(moviePlayModel.getMovieUrl() + allMoviesTable.getSelectionModel().getSelectedItem().getFileLink());
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/MoviePlay.fxml")));
         Stage stage = new Stage();
@@ -358,7 +359,7 @@ public class MainViewController implements Initializable {
         stage.setScene(scene);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
-        }
+    }
 
 
     private void oldMoviesWarning() throws IOException {
