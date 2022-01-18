@@ -127,12 +127,7 @@ public class MainViewController implements Initializable {
      * @throws IOException
      */
     public void handleCreateCategory(ActionEvent actionEvent) throws IOException {
-        Parent parent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/CreateCategory.fxml"))); // The FXML path
-        Scene scene = new Scene(parent); // Scenen som skal vises
-        Stage createCategoryStage = new Stage();
-        createCategoryStage.setResizable(false);
-        createCategoryStage.setScene(scene); // Sets the new scene
-        createCategoryStage.showAndWait(); // This shows the new scene
+        openScene("/gui/view/CreateCategory.fxml", false, true, "Create category ", false);
         categoryListView.getItems().clear();
         categoryListView.setItems(categoryModel.getObservableCategories());
     }
@@ -189,12 +184,7 @@ public class MainViewController implements Initializable {
      * @throws IOException
      */
     public void handleCreateMovieButton(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/gui/view/CreateMovie.fxml"));
-        Stage stage = new Stage();
-        stage.setTitle("CreateMovie");
-        stage.setScene(new Scene(root));
-        stage.setResizable(false);
-        stage.showAndWait();
+        openScene("/gui/view/CreateMovie.fxml", false, true, "Create movie", false);
         allMoviesTable.getItems().clear();
         allMoviesTable.setItems(movieModel.getObservableMovies());
     }
@@ -304,7 +294,6 @@ public class MainViewController implements Initializable {
      * @throws SQLServerException
      */
     public void handleButtonPlay(ActionEvent actionEvent) throws IOException, SQLServerException {
-        ///TODO UPDATE LAST VIEW NÅR MOVIE AFSPILLES FRA CATEGORY, IKKE KUN FRA ALLMOVIES TABLE
         if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
             movieModel.updateMovieTime(movie);
@@ -351,14 +340,8 @@ public class MainViewController implements Initializable {
     }
 
     public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
-        //System.out.println(moviePlayModel.getMovieUrl());
         moviePlayModel.setMovieUrl(moviePlayModel.getMovieUrl() + allMoviesTable.getSelectionModel().getSelectedItem().getFileLink());
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gui/view/MoviePlay.fxml")));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.show();
+        openScene("/gui/view/MoviePlay.fxml", true, false, "MoviePlayer", false);
     }
 
 
@@ -376,5 +359,30 @@ public class MainViewController implements Initializable {
 
     public void handleSearchButton(ActionEvent actionEvent) throws SQLException, IOException {
         movieModel.searchMovie(filterInput.getText(), filterType);
+    }
+
+
+    public void openScene(String pathToFXML, boolean undecorated, boolean showAndWait, String title, boolean resizable) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource(pathToFXML));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        if(undecorated){
+            stage.initStyle(StageStyle.UNDECORATED);
+        }
+        if(!undecorated){
+            stage.initStyle(StageStyle.DECORATED);
+        }
+
+        stage.setTitle(title);
+        stage.setResizable(resizable);
+
+        stage.setScene(scene);
+        if(showAndWait){
+            stage.showAndWait();
+        }
+
+        if(!showAndWait){
+            stage.show();
+        }
     }
 }
