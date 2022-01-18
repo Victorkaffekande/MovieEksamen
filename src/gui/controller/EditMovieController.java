@@ -76,10 +76,11 @@ public class EditMovieController extends MovieController implements Initializabl
         float rating = getRating(txtMovieRatingEdit);
         float personalRating = getPersonalRating(txtMoviePersonalRatingEdit);
 
-        Movie movie = new Movie(id, title, rating, filePath, lastView, personalRating);
-        movieModel.updateMovie(movie);
-
-        closeWindow(newMovieAcceptEdit);
+        if (title != null && filePath != null && rating >=0 &&personalRating >=0){
+            Movie movie = new Movie(id, title, rating, filePath, lastView, personalRating);
+            movieModel.updateMovie(movie);
+            closeWindow(newMovieAcceptEdit);
+        }
     }
 
     /**

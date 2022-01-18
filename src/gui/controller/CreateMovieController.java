@@ -48,9 +48,12 @@ public class CreateMovieController extends MovieController implements Initializa
         String filePath = getFilePath(movieFilePathTxt);
         float rating = getRating(movieRatingTxt);
         float personalRating = getPersonalRating(moviePersonalRatingTxt);
-        movieModel.createMovie(title, rating, filePath, personalRating);
-        closeWindow(cancelBtn);
-    }
+
+        if (title != null && filePath != null && rating >= 0 && personalRating >= 0){
+            movieModel.createMovie(title, rating, filePath, personalRating);
+            closeWindow(cancelBtn);
+        }
+     }
 
     /**
      * chooseMovieFileBtn er Choose knappen, som man benytter, når man skal vælge/finde Filepath. Da filepath er en

@@ -26,7 +26,8 @@ public class CreateCategoryController extends CategoryController {
      */
 
     public void handleAcceptButton(ActionEvent actionEvent) throws SQLServerException {
-        if (getName(nameInput) != null){
+        String name = getName(nameInput);
+        if (name != null){
             categoryModel.createCategory(getName(nameInput));
             closeWindow(nameInput);
         }else{

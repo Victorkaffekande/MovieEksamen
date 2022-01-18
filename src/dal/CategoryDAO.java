@@ -51,29 +51,19 @@ public class CategoryDAO {
      *              applikationen. Id'et bliver forøget med 1 hver gang et nyt objekt
      *              bliver tilføjet.
      * @return det nye kategori objekt
-     * @throws SQLServerException
      */
 
-    public Category createCategory(String categoryName) throws SQLServerException {
-        int newID = -1;
+    public void createCategory(String categoryName) {
         String sql = "INSERT INTO Category(Name) VALUES (?)";
         try (Connection connection = databaseConnector.getConnection()) {
             PreparedStatement prepstatement = connection.prepareStatement(sql);
             prepstatement.setString(1, categoryName);
-            prepstatement.addBatch();
-            prepstatement.executeBatch();
+            prepstatement.execute();
 
-            sql = "SELECT TOP(1) * FROM Category ORDER by Id desc";
-            prepstatement = connection.prepareStatement(sql);
-            ResultSet rs = prepstatement.executeQuery();
-            while (rs.next()) {
-                newID = rs.getInt("id");
-            }
-            prepstatement.executeBatch();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return new Category(newID, categoryName);
+
     }
 
     /**
