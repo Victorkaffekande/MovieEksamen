@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="1115.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="1115.0" stylesheets="@../MainController.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.controller.MainViewController">
     <children>
       <ImageView fitHeight="635.0" fitWidth="1115.0" pickOnBounds="true">
          <image>
@@ -55,7 +55,7 @@
             </font>
         </Label>
         <TextField fx:id="filterInput" layoutX="929.0" layoutY="31.0" promptText="Input search term" />
-        <Button layoutX="434.0" layoutY="38.0" mnemonicParsing="false" onAction="#handleButtonPlay" opacity="0.0" prefHeight="75.0" prefWidth="85.0" text="Play">
+        <Button layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#handleButtonPlay" opacity="0.0" prefHeight="75.0" prefWidth="85.0" text="Play">
             <font>
                 <Font size="18.0" />
             </font>
@@ -66,7 +66,8 @@
         <Button layoutX="789.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleCreateMovieButton" text="Create" />
         <Button layoutX="877.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleEditMovieButton" text="Edit" />
         <Button layoutX="947.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleDeleteMovieButton" text="Delete" />
-      <ImageView disable="true" fitHeight="75.0" fitWidth="85.0" layoutX="434.0" layoutY="38.0" pickOnBounds="true">
+      <Button layoutX="434.0" layoutY="41.0" mnemonicParsing="false" onAction="#playMovieMediaView" opacity="0.0" prefHeight="75.0" prefWidth="85.0" text="Play" />
+      <ImageView disable="true" fitHeight="75.0" fitWidth="85.0" layoutX="434.0" layoutY="41.0" pickOnBounds="true">
          <image>
             <Image url="https://i.ibb.co/jZQ8kK5/play-Pause-Button2.png" />
          </image>
@@ -87,7 +88,6 @@
       <RadioButton fx:id="radioButtonCategory" layoutX="954.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Category" toggleGroup="$searchFilter" />
       <RadioButton fx:id="radioButtonRating" layoutX="1030.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Rating" toggleGroup="$searchFilter" />
       <Button layoutX="485.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteMovieFromCategory" text="Delete" />
-      <Button layoutX="55.0" layoutY="43.0" mnemonicParsing="false" onAction="#playMovieMediaView" text="Test" />
       <Button layoutX="863.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
     </children>
 </AnchorPane>
