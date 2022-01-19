@@ -44,6 +44,10 @@ public class EditCategoryController extends CategoryController {
         }
     }
 
+    /**
+     * Sætter start teksten i navne inputtet til det nuværende navn
+     * @param category den nuværende kategori
+     */
     public void setCategory(Category category) {
         id = category.getId();
         enterCategoryName.setText(category.getName());
