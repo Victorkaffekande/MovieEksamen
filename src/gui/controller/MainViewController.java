@@ -122,11 +122,9 @@ public class MainViewController implements Initializable {
 
     /**
      * Metoden handleCreateCategory styrer knappen "Create" under Category, som åbner createCategory.fxml
-     *
-     * @param actionEvent javaFX event klasse
      * @throws IOException
      */
-    public void handleCreateCategory(ActionEvent actionEvent) throws IOException {
+    public void handleCreateCategory() throws IOException {
         openScene("/gui/view/CreateCategory.fxml", false, true, "Create category ", false);
         categoryListView.getItems().clear();
         categoryListView.setItems(categoryModel.getObservableCategories());
@@ -134,11 +132,9 @@ public class MainViewController implements Initializable {
 
     /**
      * Metoden handleEditCategory styrer knappen "Edit" under Category, som åbner EditCategory.fxml
-     *
-     * @param actionEvent javaFX event klasse
      * @throws IOException
      */
-    public void handleEditCategory(ActionEvent actionEvent) throws IOException {
+    public void handleEditCategory() throws IOException {
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         if (selectedCategory != null) {
             FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/EditCategory.fxml"));
@@ -159,10 +155,8 @@ public class MainViewController implements Initializable {
 
     /**
      * handleDeleteCategory styrer knappen "delete" under Category listView. Metoden sletter et specifikt valgt category objekt
-     *
-     * @param actionEvent javaFX event klasse
      */
-    public void handleDeleteCategory(ActionEvent actionEvent) {
+    public void handleDeleteCategory() {
         if (categoryListView.getSelectionModel().getSelectedItem() == null) {
             error("Please choose a category to delete");
         } else {
@@ -179,11 +173,9 @@ public class MainViewController implements Initializable {
 
     /**
      * handleCreateMovieButton styrer knappen "Create" under allMovies tableview, som åbner "gui/view/CreateMovie.fxml"
-     *
-     * @param actionEvent javaFX event klasse
      * @throws IOException
      */
-    public void handleCreateMovieButton(ActionEvent actionEvent) throws IOException {
+    public void handleCreateMovieButton() throws IOException {
         openScene("/gui/view/CreateMovie.fxml", false, true, "Create movie", false);
         allMoviesTable.getItems().clear();
         allMoviesTable.setItems(movieModel.getObservableMovies());
@@ -191,11 +183,9 @@ public class MainViewController implements Initializable {
 
     /**
      * handleEditMovieButton styrer knappen "Edit" under allMovies tableview, som åbner "gui/view/EditMovie.fxml"
-     *
-     * @param actionEvent javaFX event klasse
      * @throws IOException
      */
-    public void handleEditMovieButton(ActionEvent actionEvent) throws IOException {
+    public void handleEditMovieButton() throws IOException {
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
         if (selectedMovie != null) {
             FXMLLoader root = new FXMLLoader(getClass().getResource("/gui/view/EditMovie.fxml"));
@@ -216,10 +206,8 @@ public class MainViewController implements Initializable {
 
     /**
      * handleDeleteMovieButton styrer knappen "delete" under Movie TableView. Metoden sletter et specifikt valgt Movie objekt hvis der vælges yes i alertboxen
-     *
-     * @param actionEvent javaFX event klasse
      */
-    public void handleDeleteMovieButton(ActionEvent actionEvent) {
+    public void handleDeleteMovieButton() {
         if (allMoviesTable.getSelectionModel().getSelectedItem() == null) {
             error("Please choose a movie to delete");
         } else {
@@ -245,10 +233,8 @@ public class MainViewController implements Initializable {
 
     /**
      * addMovieToCategoryBtn Styrer knappen "Add", som tilføjer et Movie objekt til en Category objekt
-     *
-     * @param actionEvent javaFX event klasse
      */
-    public void addMovieToCategoryBtn(ActionEvent actionEvent) {
+    public void addMovieToCategoryBtn() {
         boolean alReadyInCategory = false;
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = allMoviesTable.getSelectionModel().getSelectedItem();
@@ -276,7 +262,7 @@ public class MainViewController implements Initializable {
 
     }
 
-    public void handleRadioButton(ActionEvent actionEvent) {
+    public void handleRadioButton() {
         if (radioButtonTitle.isSelected()) {
             filterType = "movieFilter";
         } else if (radioButtonRating.isSelected()) {
@@ -289,11 +275,11 @@ public class MainViewController implements Initializable {
     /**
      * handleButtonPlay Styrer Play/Pause stop knappen, som enten starter eller stopper en film i at blive afspillet.
      *
-     * @param actionEvent javaFX event klasse
+     *
      * @throws IOException
      * @throws SQLServerException
      */
-    public void handleButtonPlay(ActionEvent actionEvent) throws IOException, SQLServerException {
+    public void handleButtonPlay() throws IOException, SQLServerException {
         if (allMoviesTable.getSelectionModel().getSelectedItem() != null) {
             Movie movie = allMoviesTable.getSelectionModel().getSelectedItem();
             movieModel.updateMovieTime(movie);
@@ -317,7 +303,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public void deleteMovieFromCategory(ActionEvent actionEvent) {
+    public void deleteMovieFromCategory() {
 
         Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
         Movie selectedMovie = moviesTable.getSelectionModel().getSelectedItem();
@@ -339,9 +325,38 @@ public class MainViewController implements Initializable {
         moviesTable.getSelectionModel().clearSelection();
     }
 
-    public void playMovieMediaView(ActionEvent actionEvent) throws IOException {
-        moviePlayModel.setMovieUrl(moviePlayModel.getMovieUrl() + allMoviesTable.getSelectionModel().getSelectedItem().getFileLink());
-        openScene("/gui/view/MoviePlay.fxml", true, false, "MoviePlayer", false);
+    /**
+     *
+     * Afspiller filmen ved anvendelse af mediaView klassen i et nyt vindue
+     * Opdaterer tiden på filmene når de bliver afspillet
+     * @throws IOException
+     * @throws SQLServerException
+     */
+    public void playMovieMediaView() throws IOException, SQLServerException {
+        Movie selectedMovieAllMoviesTable = allMoviesTable.getSelectionModel().getSelectedItem();
+        Movie selectedMovieMoviesTable = moviesTable.getSelectionModel().getSelectedItem();
+        Category selectedCategory = categoryListView.getSelectionModel().getSelectedItem();
+        if(selectedMovieAllMoviesTable != null){
+            movieModel.updateMovieTime(selectedMovieAllMoviesTable);
+            moviePlayModel.setMovieUrl(moviePlayModel.getMovieUrl() + selectedMovieAllMoviesTable.getFileLink());
+            allMoviesTable.getItems().clear();
+            allMoviesTable.setItems(movieModel.getObservableMovies());
+            openScene("/gui/view/MoviePlay.fxml", true, false, "MoviePlayer", false);
+        }
+        else if(selectedMovieMoviesTable != null){
+            movieModel.updateMovieTime(selectedMovieMoviesTable);
+            moviePlayModel.setMovieUrl(moviePlayModel.getMovieUrl() + selectedMovieMoviesTable.getFileLink());
+            moviesTable.getItems().clear();
+            moviesTable.setItems(categoryModel.getAllMoviesFromCategoriesObservable(selectedCategory));
+            openScene("/gui/view/MoviePlay.fxml", true, false, "MoviePlayer", false);
+        }
+        else{
+            error("Please select a movie to play");
+        }
+
+
+
+
     }
 
 
@@ -357,7 +372,7 @@ public class MainViewController implements Initializable {
         }
     }
 
-    public void handleSearchButton(ActionEvent actionEvent) throws SQLException, IOException {
+    public void handleSearchButton() throws SQLException, IOException {
         movieModel.searchMovie(filterInput.getText(), filterType);
     }
 

@@ -55,7 +55,7 @@
             </font>
         </Label>
         <TextField fx:id="filterInput" layoutX="929.0" layoutY="31.0" promptText="Input search term" />
-        <Button layoutX="225.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleButtonPlay" prefHeight="85.0" prefWidth="139.0" text="Play in system media player" wrapText="true">
+        <Button layoutX="225.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleButtonPlay" prefHeight="75.0" prefWidth="139.0" text="Play in system media player" wrapText="true">
             <font>
                 <Font size="18.0" />
             </font>
