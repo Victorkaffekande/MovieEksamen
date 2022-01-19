@@ -11,13 +11,18 @@ import java.io.File;
 import java.io.IOException;
 
 public abstract  class MovieController {
-    private final MovieModel movieModel;
     private final int  MAXRATING = 10;
 
     protected MovieController() throws IOException {
-        movieModel = new MovieModel();
+        MovieModel movieModel = new MovieModel();
     }
 
+    /**
+     * Giver en listener til et tekstfelt der sikre at
+     * tekstfeltet kun kan modtage tal og at der ikke er
+     * flere end to tal før kommaet og kun et tal efter
+     * @param movieRatingTxt
+     */
     public void addNumbersOnlyListener(TextField movieRatingTxt) {
         movieRatingTxt.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d{0,2}([\\.]\\d{0,1})?")) {
@@ -26,6 +31,11 @@ public abstract  class MovieController {
         });
     }
 
+    /**
+     * Finder en string fra det givne tekstfelt
+     * @param titleField teksfelt til filmnavn
+     * @return en trimmet string hvis feltet indeholder andet end mellemrum
+     */
     public String getMovieTitle(TextField titleField){
         if (!titleField.getText().trim().isEmpty()){
             return titleField.getText().trim();
@@ -36,6 +46,11 @@ public abstract  class MovieController {
         return null;
     }
 
+    /**
+     * Finder en string fra det givne tekstfelt
+     * @param fileField teksfelt til filmnavn
+     * @return en trimmet string hvis feltet indeholder andet end mellemrum
+     */
     public String getFilePath(TextField fileField){
         if (!fileField.getText().trim().isEmpty()){
             return fileField.getText().trim();
@@ -45,6 +60,11 @@ public abstract  class MovieController {
         return null;
     }
 
+    /**
+     * Finder ratingen i et tekstfelt
+     * @param ratingField tekstfeltet hvor ratingen befinder sig
+     * @return en rating float hvis feltet ikke er tomt.
+     */
     public float getRating(TextField ratingField){
         float rating = -1;
         if (!ratingField.getText().trim().isEmpty() && Float.parseFloat(ratingField.getText().trim()) <= MAXRATING){
@@ -55,6 +75,11 @@ public abstract  class MovieController {
         return rating;
     }
 
+    /**
+     * Finder den personlige rating i et tekstfelt
+     * @param personalRatingField tekstfeltet hvor ratingen befinder sig
+     * @return en rating float hvis feltet ikke er tomt.
+     */
     public float getPersonalRating(TextField personalRatingField){
         float personalRating = -1;
         if (!personalRatingField.getText().trim().isEmpty() && Float.parseFloat(personalRatingField.getText().trim()) <= MAXRATING){
@@ -65,7 +90,10 @@ public abstract  class MovieController {
         return personalRating;
     }
 
-
+    /**
+     * åbner et errorvindue
+     * @param errorTxt den tekst vinduet skal indeholde
+     */
     private void errorWindow(String errorTxt){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Warning");
@@ -73,6 +101,10 @@ public abstract  class MovieController {
         alert.showAndWait();
     }
 
+    /**
+     * finder filepathen fra det valgte tekstfelt
+     * @param fileField tekstfeltet hvor fil stien befinder sig
+     */
     public void chooseFilePath(TextField fileField){
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Movies", "*.mp4", "*.mpeg4"));
@@ -84,12 +116,13 @@ public abstract  class MovieController {
         }
     }
 
+    /**
+     * lukker et vindue
+     * @param anyButton en knap der befinder sig i det vindue der skal lukkes
+     */
     public void closeWindow(Button anyButton){
         Stage stage = (Stage) anyButton.getScene().getWindow();
         stage.close();
     }
-    public void closeWindow(TextField anyTextField){
-        Stage stage = (Stage) anyTextField.getScene().getWindow();
-        stage.close();
-    }
+
 }
