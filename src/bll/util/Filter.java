@@ -19,10 +19,11 @@ public class Filter {
     }
 
     /**
-     * compares songList with a String from query
-     *
-     * @param movieList
-     * @param query
+     * Sammenligner navn, rating eller kategori på hver
+     * film i den givne filmliste med det indtastede query
+     * @param movieList listen af film objekter der skal sammenlignes
+     * @param query søge inputtet
+     * @param filterType hvad der skal sammen lignes. "categoryFilter", "movieFilter", "ratingFilter"
      * @return a list of songs containing the String
      */
     public List<Movie> search(List<Movie> movieList, String query, String filterType) throws SQLException, IOException {
@@ -56,7 +57,12 @@ public class Filter {
         return result;
     }
 
-
+    /**
+     * Sammenligner titlen med inputtet
+     * @param movie Filmen der undersøges om den fylder kriterierne
+     * @param query inputtet fra søgefeltet som der ledes efter
+     * @return True hvis filmens titel indeholder søge inputtet, else false
+     */
     private boolean compareToTitle(Movie movie, String query) {
         return movie.getName().toLowerCase().contains(query.toLowerCase());
     }
@@ -78,7 +84,13 @@ public class Filter {
         return false;
     }
 
-
+    /**
+     * Sammenligner kategoi id'et af den givne film med med id'erne fra de søgte kategorier
+     * @param movie den film der sammenlignes
+     * @param categoryIds id'erne fra de søgte kategorier
+     * @return true hvis filmen optræder i den søgte kategori
+     * @throws SQLException
+     */
     private boolean compareCategory(Movie movie, int[] categoryIds) throws SQLException {
         if (categoryIds[0] == 0) {
             return true;
@@ -100,7 +112,13 @@ public class Filter {
         return false;
     }
 
-    private int[] getCategoryIds(String category) throws SQLException, IOException {
+    /**
+     * Finder ud af om det givne input er en kategori
+     * @param category søge input
+     * @return  Et array af kategori id'er
+     * @throws IOException
+     */
+    private int[] getCategoryIds(String category) throws IOException {
         String[] catArray = category.toLowerCase(Locale.ROOT).trim().split(" ");
 
         List<Category> allCategories = categoryDAO.getAllCategories();
@@ -127,5 +145,4 @@ public class Filter {
         }
         return categoryIds;
     }
-
 }
