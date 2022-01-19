@@ -8,7 +8,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,7 +20,7 @@
             <Image url="https://image.freepik.com/free-photo/navy-blue-smoky-art-abstract-background_53876-102669.jpg" />
          </image>
       </ImageView>
-        <TableView fx:id="allMoviesTable" layoutX="671.0" layoutY="183.0" onMouseClicked="#allMoviesTableClicked" prefHeight="285.0" prefWidth="439.0" stylesheets="@../MainController.css">
+        <TableView fx:id="allMoviesTable" layoutX="671.0" layoutY="184.0" onMouseClicked="#allMoviesTableClicked" prefHeight="285.0" prefWidth="440.0" stylesheets="@../MainController.css">
             <columns>
                 <TableColumn fx:id="allMoviesNameColumn" prefWidth="132.0" text="Name" />
                 <TableColumn fx:id="allMoviesRatingColumn" prefWidth="71.0" text="IMDB Rating" />
@@ -31,7 +30,7 @@
         </TableView>
         <ListView fx:id="categoryListView" layoutX="14.0" layoutY="185.0" onMouseClicked="#lookAtCategoryMovies" prefHeight="285.0" prefWidth="170.0" />
         <Label layoutX="55.0" layoutY="56.0" />
-        <TableView fx:id="moviesTable" layoutX="225.0" layoutY="184.0" onMouseClicked="#handleMovieTableClicked" prefHeight="285.0" prefWidth="439.0">
+        <TableView fx:id="moviesTable" layoutX="190.0" layoutY="184.0" onMouseClicked="#handleMovieTableClicked" prefHeight="285.0" prefWidth="440.0">
             <columns>
                 <TableColumn fx:id="moviesNameColumn" prefWidth="132.0" text="Name" />
                 <TableColumn fx:id="moviesRatingColumn" prefWidth="71.0" text="IMBD Rating" />
@@ -44,7 +43,7 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Label layoutX="401.0" layoutY="154.0" text="Movies">
+        <Label layoutX="384.0" layoutY="154.0" prefWidth="55.0" text="Movies">
             <font>
                 <Font size="18.0" />
             </font>
@@ -55,7 +54,7 @@
             </font>
         </Label>
         <TextField fx:id="filterInput" layoutX="929.0" layoutY="31.0" promptText="Input search term" />
-        <Button layoutX="225.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleButtonPlay" prefHeight="75.0" prefWidth="139.0" text="Play in system media player" wrapText="true">
+        <Button layoutX="243.0" layoutY="41.0" mnemonicParsing="false" onAction="#handleButtonPlay" prefHeight="75.0" prefWidth="140.0" text="Play in system media player" wrapText="true">
             <font>
                 <Font size="18.0" />
             </font>
@@ -66,28 +65,24 @@
         <Button layoutX="789.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleCreateMovieButton" text="Create" />
         <Button layoutX="877.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleEditMovieButton" text="Edit" />
         <Button layoutX="947.0" layoutY="492.0" mnemonicParsing="false" onAction="#handleDeleteMovieButton" text="Delete" />
-      <Button layoutX="434.0" layoutY="41.0" mnemonicParsing="false" onAction="#playMovieMediaView" opacity="0.0" prefHeight="75.0" prefWidth="85.0" text="Play" />
-      <ImageView disable="true" fitHeight="75.0" fitWidth="85.0" layoutX="434.0" layoutY="41.0" pickOnBounds="true">
-         <image>
-            <Image url="https://i.ibb.co/jZQ8kK5/play-Pause-Button2.png" />
-         </image>
-         <effect>
-            <DropShadow />
-         </effect>
-      </ImageView>
       <Label layoutX="976.0" layoutY="3.0" text="Search">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="330.0" layoutY="492.0" mnemonicParsing="false" onAction="#addMovieToCategoryBtn" text="Add" />
+      <Button layoutX="632.0" layoutY="492.0" mnemonicParsing="false" onAction="#addMovieToCategoryBtn" text="Add" />
       <RadioButton fx:id="radioButtonTitle" layoutX="885.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Title">
          <toggleGroup>
             <ToggleGroup fx:id="searchFilter" />
          </toggleGroup></RadioButton>
       <RadioButton fx:id="radioButtonCategory" layoutX="954.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Category" toggleGroup="$searchFilter" />
       <RadioButton fx:id="radioButtonRating" layoutX="1030.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleRadioButton" text="Rating" toggleGroup="$searchFilter" />
-      <Button layoutX="485.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteMovieFromCategory" text="Delete" />
+      <Button layoutX="383.0" layoutY="492.0" mnemonicParsing="false" onAction="#deleteMovieFromCategory" text="Delete" />
       <Button layoutX="863.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleSearchButton" text="Search" />
+      <Button layoutX="440.0" layoutY="41.0" mnemonicParsing="false" onAction="#playMovieMediaView" prefHeight="75.0" prefWidth="140.0" text="Play in app media player" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>
