@@ -43,17 +43,4 @@ public class DatabaseConnector {
         return ds.getConnection();
     }
 
-    /**
-     * Tester til at se om den åbner
-     * @param args
-     * @throws IOException
-     * @throws SQLException
-     */
-
-    public static void main(String[] args) throws IOException, SQLException {
-        DatabaseConnector databaseConnector = new DatabaseConnector();
-        Connection connection = databaseConnector.getConnection();
-        System.out.println("Is it open" + !connection.isClosed());
-        connection.close();
-    }
 }
